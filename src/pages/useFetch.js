@@ -6,7 +6,7 @@ const useFetch = (url, page, pageSize) => {
     const [error, setError] = useState('')
 
     
-    let newUrl = url + '?pageNumber=' + page + '&pageSize=' + pageSize
+    let newUrl = url + '?SortOrder=-drawDate' +'&pageNumber=' + page + '&pageSize=' + pageSize
 
   useEffect(() => {
     fetch(newUrl, {mode: 'cors'})
