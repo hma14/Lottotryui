@@ -5,6 +5,7 @@ import useFetch from "./pages/useFetch"
 import styled from 'styled-components'
 
 import BC49 from './lottos/BC49'
+import BC49AllNumbersStatistics from './lottos/BC49AllNumbersStatistics'
 
 
 const Styles = styled.div`
@@ -41,7 +42,10 @@ const Styles = styled.div`
 
 function App() {
 
-  let url = 'http://localhost:9090/api/bc49'
+  let url = 'http://localhost:9090/api/lottonumbers?lottoname=1'
+
+  //let url = 'http://localhost:9090/api/bc49'
+
 
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(10)
@@ -87,10 +91,13 @@ function App() {
         <div className="card-body">       
         {
             <div className="container-fluid">
-
+ 
+                {/* {console.log(data)} */}
+   
                 {data !== null ? (
                 <>
-                  <BC49 lottoData={data}/>
+                  {/* <BC49 lottoData={data}/>  */}
+                  <BC49AllNumbersStatistics lottoData={data}/>
 
                   <div className="row">
                     <div className="col-lg-3">

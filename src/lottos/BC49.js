@@ -10,7 +10,7 @@ function BC49 (props) {
   return (
 
     <div>
-      {/* {console.log(props.lottoData)} */}
+      {console.log(props.lottoData)}
       {props.lottoData &&
 
           <Table className="table table-striped mt-4 mb-4" striped bordered hover size="sm">
