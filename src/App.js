@@ -31,7 +31,7 @@ const Styles = styled.div`
     td {
       
       margin: 1;
-      padding: 0.5rem;
+      padding: 0.3rem;
       border-bottom: 1px solid black;
       border-right: 1px solid black;
       

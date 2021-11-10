@@ -72,12 +72,12 @@ function BC49AllNumbersStatistics (props) {
             <tbody> 
                  {props.lottoData.map(row =>                       
                         <tr key={row.drawNumber}>
-                            <td className="text-light bg-info">{row.drawNumber}</td>
-                            <td className="text-light bg-primary">{moment(row.drawDate).format('yyyy-MM-DD')}</td>
+                            <td className="text-light bg-primary">{row.drawNumber}</td>
+                            <td className="text-light bg-info">{moment(row.drawDate).format('yyyy-MM-DD')}</td>
                             {row.numbers.map(no => 
-                            no.isHit === true ? (<td className='text-danger bg-warning' key={no.number}>{no.number}({no.distance})(<span className='text-danger fw-bold'>{no.numberofDrawsWhenHit}</span>)</td>) 
-                                              : (no.distance > 10 ? (<td className='text-success bg-light' key={no.number}>{no.number}(<span className='text-danger fw-bold'>{no.distance}</span>)</td>) 
-                                              : (<td className='text-success bg-light' key={no.number}>{no.number}(<span className='text-info fw-bold'>{no.distance}</span>)</td>))
+                            no.isHit === true ? (<td className='text-danger bg-warning' key={no.number}>{no.number}({no.distance})(<span className='text-danger fst-italic fw-bold'>{no.numberofDrawsWhenHit}</span>)</td>) 
+                                              : (no.distance > 10 ? (<td className='text-success bg-light' key={no.number}>{no.number}(<span className='text-danger fst-italic fw-bold'>{no.distance}</span>)</td>) 
+                                              : (<td className='text-success bg-light' key={no.number}>{no.number}(<span className='text-info fst-italic fw-bold'>{no.distance}</span>)</td>))
                             )}   
                         </tr>
                  )}                 
