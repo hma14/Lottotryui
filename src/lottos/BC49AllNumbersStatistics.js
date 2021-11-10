@@ -13,11 +13,11 @@ function BC49AllNumbersStatistics (props) {
     <div>
       {/* {console.log(props.lottoData)} */}
       {props.lottoData &&
-          <Table className="table table-striped mt-4 mb-4 -striped -highlight" striped  bordered hover size="sm">
-            <thead>
+          <Table className="small table-hover table-borderless table-info mb-4 -highlight" >
+            <thead className="table-danger text-center">
                 <tr>
-                  <th>Draws</th>
-                  <th>Date</th>
+                  <th className="text-light bg-primary">Draws</th>
+                  <th className="text-light bg-info">Date</th>
                   <th>1</th>
                   <th>2</th>
                   <th>3</th>
@@ -72,21 +72,12 @@ function BC49AllNumbersStatistics (props) {
             <tbody> 
                  {props.lottoData.map(row =>                       
                         <tr key={row.drawNumber}>
-                            <td>{row.drawNumber}</td>
-                            <td>{moment(row.drawDate).format('yyyy-MM-DD')}</td>
+                            <td className="text-light bg-info">{row.drawNumber}</td>
+                            <td className="text-light bg-primary">{moment(row.drawDate).format('yyyy-MM-DD')}</td>
                             {row.numbers.map(no => 
-                            <td key={no.number}>{no.number}({no.distance})</td>
-/*                             
-        {if (no.isHit === true)
-                            {
-                                <td key={no.number}>{no.number}({no.distance})({no.numberofDrawsWhenHit})</td>
-                            }
-                            else
-                            {
-                                <td key={no.number}>{no.number}({no.distance})</td>                                                             
-                            }
-                            }
- */                     
+                            no.isHit === true ? (<td className='text-danger bg-warning' key={no.number}>{no.number}({no.distance})(<span className='text-danger fw-bold'>{no.numberofDrawsWhenHit}</span>)</td>) 
+                                              : (no.distance > 10 ? (<td className='text-success bg-light' key={no.number}>{no.number}(<span className='text-danger fw-bold'>{no.distance}</span>)</td>) 
+                                              : (<td className='text-success bg-light' key={no.number}>{no.number}(<span className='text-info fw-bold'>{no.distance}</span>)</td>))
                             )}   
                         </tr>
                  )}                 
