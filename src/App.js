@@ -4,8 +4,8 @@ import { useState, useEffect } from "react"
 import useFetch from "./pages/useFetch"
 import styled from 'styled-components'
 
-import BC49 from './lottos/BC49'
-import BC49AllNumbersStatistics from './lottos/BC49AllNumbersStatistics'
+
+import AllNumbersStatistics from './lottos/AllNumbersStatistics'
 import LottoTryLogo from './images/LottoTryLogo.png'
 
 
@@ -37,7 +37,7 @@ const Styles = styled.div`
       
 
       :last-child {
-        border-right: 0;
+        border-right: 1;
       }
 
     }
@@ -47,14 +47,15 @@ const Styles = styled.div`
 
 function App() {
 
-  let url = 'http://localhost:9090/api/lottonumbers?lottoname=1'
-
-  //let url = 'http://localhost:9090/api/bc49'
 
 
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(10)
   const [pageSize, setPageSize] = useState(10)
+  const [lottoName, setLottoName] = useState(1)
+
+  let url = 'http://localhost:9090/api/lottonumbers?lottoname='   + lottoName
+
   const [{data, json}] = useFetch(url, page, pageSize)
 
   const pageLimit = 10
@@ -85,14 +86,14 @@ function App() {
     var o = JSON.parse(json)
     setTotalPages((totalPages) =>  totalPages = o.totalCount)
 
-  }, [json, pageSize])
+  }, [json, url])
 
   return (
     <Styles>     
       {
         <div className="container-fluid">
             {/* {console.log(data)} */}
-            <nav className="navbar navbar-expand-xl bg-primary navbar-dark">
+            <nav className="navbar navbar-expand-xl bg-primary mb-1">
               <ul className="navbar-nav">
               <li className="nav-item">
                   <a className="navbar-brand" href="/images">
@@ -100,33 +101,33 @@ function App() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Link 1</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Link 2</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Link 3</a>
+               
+                  {/* <span className='margin-right text-light'>Select Lotto </span> */}
+                  <select id="rpp" className="dropdown btn btn-light  dropdown-toggle mt-2"  onChange={(e) => setLottoName(e.target.value)}>                       
+                        <option value="1">BC49</option>
+                        <option value="2">Lotto649</option>
+                        <option value="3">LottoMax</option>
+                  </select>
                 </li>
               </ul>
             </nav>
-            <h2 className="text-info">BC49</h2>
+
             {data !== null ? (
             <>
               {/* <BC49 lottoData={data}/>  */}
-              <BC49AllNumbersStatistics lottoData={data}/>
+              <AllNumbersStatistics lottoData={data}/>
 
               <div className="row">
                 <div className="col-lg-3">
                 <span className='margin-right'>Select </span>
-                  <select id="rpp" className="dropdown btn btn-primary  dropdown-toggle"  onChange={(e) => setPageSize(e.target.value)}>
+                <select id="rpp" className="dropdown btn btn-light dropdown-toggle"  onChange={(e) => setPageSize(e.target.value)}>
                   <option className="dropdown-item" value="10">10</option>
                   <option value="20">20</option>
                   <option value="30">30</option>
                   <option value="40">40</option>
                   <option value="50">50</option>
-                  </select>
-                  <span className='margin-left'>records per page</span>
+                </select>
+                <span className='margin-left'>records per page</span>
                     
                 </div>
                 <div className="col-lg-9">
