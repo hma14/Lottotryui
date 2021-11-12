@@ -44,6 +44,8 @@ const Styles = styled.div`
         border-right: 1px;
       }
       border:3px inset grey; margin:1px;
+      overflow-wrap: break-word;
+      text-align:center;
     }
   }
 `
@@ -108,7 +110,7 @@ function App() {
                
                   {/* <span className='margin-right text-light'>Select Lotto </span> */}
                   <select id="rpp" className="dropdown btn btn-light  dropdown-toggle mt-2"  onChange={(e) => setLottoName(e.target.value)}>                       
-                        <option value="1">BC49</option>
+                        <option className="dropdown-item" value="1">BC49</option>
                         <option value="2">Lotto649</option>
                         <option value="3">LottoMax</option>
                   </select>
@@ -121,42 +123,43 @@ function App() {
               {/* <BC49 lottoData={data}/>  */}
               <AllNumbersStatistics lottoData={data}/>
 
-              <div className="row">
-                <div className="col-lg-3">
-                <span className='margin-right'>Select </span>
-                <select id="rpp" className="dropdown btn btn-light dropdown-toggle"  onChange={(e) => setPageSize(e.target.value)}>
-                  <option className="dropdown-item" value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="30">30</option>
-                  <option value="40">40</option>
-                  <option value="50">50</option>
-                </select>
-                <span className='margin-left'>records per page</span>
-                    
-                </div>
-                <div className="col-lg-9">
-                  <button 
-                    type="button"
-                    onClick={goToPreviousPage}
-                    className={`prev btn btn-primary ${page === 1 ? 'disabled' : ''}`}
-                  >Prev</button>
-
-                  {getPaginationGroup().map((item, index) => (
-                      <button 
+              <div className="card bg-success text-warning">
+                <div className="row">
+                  <div className="col-lg-4 mt-1">
+                    <span className="ps-5 margin-right">Select</span>
+                    <select id="rpp" className="dropdown btn btn-light dropdown-toggle ps-4"  onChange={(e) => setPageSize(e.target.value)}>
+                      <option className="dropdown-item" value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="30">30</option>
+                      <option value="40">40</option>
+                      <option value="50">50</option>
+                    </select>
+                    <span className='ps-3'>records per page</span>
+                  </div>
+                  <div className="col-lg-8">
+                    <button 
                       type="button"
-                      key={index}
-                      onClick={changePage}
-                      className={`paginationItem btn btn-secondary ${page === item ? 'active' : null}`}
-                      >
-                      <span>{item}</span>
-                      </button>
-                  ))}
+                      onClick={goToPreviousPage}
+                      className={`prev btn btn-primary ${page === 1 ? 'disabled' : ''}`}
+                    >Prev</button>
 
-                  <button 
-                    type="button"
-                    onClick={goToNextPage}
-                    className={`next btn btn-primary ${page === totalPages ? 'disabled' : ''}`}
-                    >Next</button>
+                    {getPaginationGroup().map((item, index) => (
+                        <button 
+                        type="button"
+                        key={index}
+                        onClick={changePage}
+                        className={`paginationItem btn btn-secondary ${page === item ? 'active' : null}`}
+                        >
+                        <span>{item}</span>
+                        </button>
+                    ))}
+
+                    <button 
+                      type="button"
+                      onClick={goToNextPage}
+                      className={`next btn btn-primary ${page === totalPages ? 'disabled' : ''}`}
+                      >Next</button>
+                  </div>
                 </div>
               </div>
             </>              

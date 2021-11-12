@@ -130,3 +130,8 @@ table {
 .margin-right {
   margin-right:10px;
 }
+
+.navbar
+{
+  width: 100%;
+}
