@@ -14,32 +14,36 @@ const Styles = styled.div`
 
   table {
     alignment:center;
-    border-spacing: 1;
+/*     border-spacing: 2px;
     border: 1px solid black;
+ */   
     align-items: center;
-
+    border:4px outset grey; pddding:2px;
 
     tr {
       :last-child {
         td {
-          border-bottom: 0;
+          //border-bottom: 0;
         }
       }
     }
 
     th,
     td {
-      
-      margin: 1;
-      padding: 0.3rem;
-      border-bottom: 1px solid black;
+     
+      margin: 2;
+      padding: 5px;  //0.3rem;
+      /*
+       border-bottom: 1px solid black;
       border-right: 1px solid black;
-      
+      border: 1px double;
+      cellpadding:2px;
+      cellspacing:2px;*/ 
 
       :last-child {
-        border-right: 1;
+        border-right: 1px;
       }
-
+      border:3px inset grey; margin:1px;
     }
   }
 `
