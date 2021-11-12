@@ -27,7 +27,7 @@ function AllNumbersStatistics (props) {
                             <td className="text-light bg-primary">{row.drawNumber}</td>
                             <td className="text-light bg-info">{moment(row.drawDate).format('yyyy-MM-DD')}</td>
                             {row.numbers.map(no => 
-                            no.isHit === true ? (<td className='text-danger bg-warning' key={no.number}>{no.number}({no.distance})(<span className='text-danger fst-italic'>{no.numberofDrawsWhenHit}</span>)(<span className='text-primary fst-italic'>{no.totalHits}</span>)</td>) 
+                            no.isHit === true ? (<td className='text-primary bg-warning' key={no.number}>{no.number}({no.distance})(<span className='text-danger fst-italic'>{no.numberofDrawsWhenHit}</span>)(<span className='text-dark fst-italic'>{no.totalHits}</span>)</td>) 
                                               : (no.distance > 10 ? (<td className='text-success bg-light' key={no.number}>{no.number}(<span className='text-danger fst-italic fw-bold'>{no.distance}</span>)(<span className='text-primary fst-italic'>{no.totalHits}</span>)</td>) 
                                               : (<td className='text-success bg-light' key={no.number}>{no.number}(<span className='text-success fst-italic fw-bold'>{no.distance}</span>)(<span className='text-primary fst-italic'>{no.totalHits}</span>)</td>))
                             )}   
