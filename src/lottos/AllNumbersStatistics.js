@@ -18,7 +18,7 @@ function AllNumbersStatistics (props) {
                 <tr>
                   <th className="text-light bg-primary">Draws</th>
                   <th className="text-light bg-info">Date</th>
-                  {props.lottoData.slice(0, 1).map(row => row.numbers.map((no) => <th key={no.number}>{no.number}</th>))}
+                  {props.lottoData.slice(0, 1).map(row => row.numbers.map((no) => <th key={no.number} className='text-warning bg-success'>{no.number}</th>))}
                 </tr>
             </thead>                           
             <tbody> 
@@ -33,7 +33,12 @@ function AllNumbersStatistics (props) {
                             )}   
                         </tr>
                  )}                 
-            </tbody>                    
+            </tbody>       
+              <tr>
+                  <th className="text-light bg-primary">Draws</th>
+                  <th className="text-light bg-info">Date</th>
+                  {props.lottoData.slice(0, 1).map(row => row.numbers.map((no) => <th key={no.number} className='text-warning bg-success'>{no.number}</th>))}
+              </tr>             
           </Table>  }
      </div>
   )
