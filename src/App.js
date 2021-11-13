@@ -59,6 +59,7 @@ function App() {
   const [totalPages, setTotalPages] = useState(10)
   const [pageSize, setPageSize] = useState(10)
   const [lottoName, setLottoName] = useState(1)
+  
 
   let url = 'http://localhost:9090/api/lottonumbers?lottoname='   + lottoName
 
@@ -134,7 +135,7 @@ function App() {
                       <option value="40">40</option>
                       <option value="50">50</option>
                     </select>
-                    <span className='ps-3'>records per page</span>
+                    <span className='ps-3'>rows per page</span>
                   </div>
                   <div className="col-lg-8">
                     <button 
