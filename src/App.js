@@ -59,7 +59,9 @@ function App() {
   const [totalPages, setTotalPages] = useState(10)
   const [pageSize, setPageSize] = useState(10)
   const [lottoName, setLottoName] = useState(1)
-  
+  const [sortType, setSortType] = useState('number');
+
+
 
   let url = 'http://localhost:9090/api/lottonumbers?lottoname='   + lottoName
 
@@ -93,7 +95,9 @@ function App() {
     var o = JSON.parse(json)
     setTotalPages((totalPages) =>  totalPages = o.totalCount)
 
-  }, [json, url])
+  }, [json, url, sortType])
+
+
 
   return (
     <Styles>     
@@ -107,22 +111,29 @@ function App() {
                     <img src={LottoTryLogo} className="img-fluid" alt="Lottotry Logo" width="50%" />
                   </a>
                 </li>
-                <li className="nav-item">
-               
+                <li className="nav-item">              
                   {/* <span className='margin-right text-light'>Select Lotto </span> */}
-                  <select id="rpp" className="dropdown btn btn-light  dropdown-toggle mt-2"  onChange={(e) => setLottoName(e.target.value)}>                       
+                  <select id="rpp" className="dropdown btn btn-light  dropdown-toggle mt-2 margin-right"  onChange={(e) => setLottoName(e.target.value)}>                       
                         <option className="dropdown-item" value="1">BC49</option>
                         <option value="2">Lotto649</option>
                         <option value="3">LottoMax</option>
                   </select>
                 </li>
+                <li className="nav-item">              
+                  <select id="rpp" className="dropdown btn btn-light  dropdown-toggle mt-2 margin-left margin-right"  onChange={(e) => setSortType(e.target.value)}>                       
+                        <option className="dropdown-item" value="number">Number</option>
+                        <option value="distance">Distance</option>                        
+                        <option value="totalHits">Total Hits</option>                        
+                  </select>
+                </li>
+
               </ul>
             </nav>
 
             {data !== null ? (
             <>
               {/* <BC49 lottoData={data}/>  */}
-              <AllNumbersStatistics lottoData={data}/>
+              <AllNumbersStatistics lottoData={data} sortType={sortType} />
 
               <div className="card bg-success text-warning">
                 <div className="row">

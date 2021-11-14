@@ -4547,6 +4547,11 @@
   "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-8.2.0.tgz"
   "version" "8.2.0"
 
+"dropdown@^0.2.0":
+  "integrity" "sha1-1SqedbpMwjPFBpBu9+hw1Qo1P2A="
+  "resolved" "https://registry.npmjs.org/dropdown/-/dropdown-0.2.0.tgz"
+  "version" "0.2.0"
+
 "duplexer@^0.1.1", "duplexer@^0.1.2":
   "integrity" "sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg=="
   "resolved" "https://registry.npmjs.org/duplexer/-/duplexer-0.1.2.tgz"
