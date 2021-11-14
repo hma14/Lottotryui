@@ -56,7 +56,7 @@ function App() {
 
 
   const [page, setPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(10)
+  const [totalPages, setTotalPages] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [lottoName, setLottoName] = useState(1)
   const [sortType, setSortType] = useState('number');
@@ -71,7 +71,9 @@ function App() {
 
   const getPaginationGroup = ()  => {
     let start = Math.floor((page - 1) / pageLimit) * pageLimit
-    let array = new Array(pageLimit).fill().map((_, idx) => start + idx + 1)
+    var remainingPages = totalPages - page
+    var arrayLength = remainingPages > 0 ? pageLimit : remainingPages + 1
+    let array = new Array(arrayLength).fill().map((_, idx) => start + idx + 1)
     return array
   }
 
@@ -93,7 +95,7 @@ function App() {
   useEffect(() => {
     
     var o = JSON.parse(json)
-    setTotalPages((totalPages) =>  totalPages = o.totalCount)
+    setTotalPages(o.totalPages) 
 
   }, [json, url, sortType])
 
@@ -121,11 +123,10 @@ function App() {
                 </li>
                 <li className="nav-item">   
                   <div className="mt-2 margin-left margin-right fw-bold">     
-                    <label for="rpp" className="text-warning">Sort By</label>  
                     <select id="rpp" className="dropdown btn btn-success  dropdown-toggle fw-bold"  onChange={(e) => setSortType(e.target.value)}>                       
-                          <option className="dropdown-item" value="number">Number</option>
-                          <option value="distance">Hit Distance</option>                        
-                          <option value="totalHits">Total Hits</option>                        
+                          <option className="dropdown-item" value="number">Sort by Number</option>
+                          <option value="distance">Sort by Hit Distance</option>                        
+                          <option value="totalHits">Sort by Total Hits</option>                        
                     </select>
                   </div>
                 </li>
@@ -154,7 +155,7 @@ function App() {
                     <button 
                       type="button"
                       onClick={goToPreviousPage}
-                      className={`prev btn btn-primary ${page === 1 ? 'disabled' : ''}`}
+                      className={`prev btn btn-success fw-bold ${page === 1 ? 'disabled' : ''}`}
                     >Prev</button>
 
                     {getPaginationGroup().map((item, index) => (
@@ -162,7 +163,7 @@ function App() {
                         type="button"
                         key={index}
                         onClick={changePage}
-                        className={`paginationItem btn btn-secondary ${page === item ? 'active' : null}`}
+                        className={`paginationItem btn btn-secondary  fw-bold ${page === item ? 'active' : null}`}
                         >
                         <span>{item}</span>
                         </button>
@@ -171,7 +172,7 @@ function App() {
                     <button 
                       type="button"
                       onClick={goToNextPage}
-                      className={`next btn btn-primary ${page === totalPages ? 'disabled' : ''}`}
+                      className={`next btn btn-success  fw-bold ${page === totalPages ? 'disabled' : ''}`}
                       >Next</button>
                   </div>
                 </div>
