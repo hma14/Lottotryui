@@ -113,18 +113,21 @@ function App() {
                 </li>
                 <li className="nav-item">              
                   {/* <span className='margin-right text-light'>Select Lotto </span> */}
-                  <select id="rpp" className="dropdown btn btn-light  dropdown-toggle mt-2 margin-right"  onChange={(e) => setLottoName(e.target.value)}>                       
+                  <select id="rpp" className="dropdown btn btn-success  dropdown-toggle mt-2 margin-right fw-bold"  onChange={(e) => setLottoName(e.target.value)}>                       
                         <option className="dropdown-item" value="1">BC49</option>
                         <option value="2">Lotto649</option>
                         <option value="3">LottoMax</option>
                   </select>
                 </li>
-                <li className="nav-item">              
-                  <select id="rpp" className="dropdown btn btn-light  dropdown-toggle mt-2 margin-left margin-right"  onChange={(e) => setSortType(e.target.value)}>                       
-                        <option className="dropdown-item" value="number">Number</option>
-                        <option value="distance">Distance</option>                        
-                        <option value="totalHits">Total Hits</option>                        
-                  </select>
+                <li className="nav-item">   
+                  <div className="mt-2 margin-left margin-right fw-bold">     
+                    <label for="rpp" className="text-warning">Sort By</label>  
+                    <select id="rpp" className="dropdown btn btn-success  dropdown-toggle fw-bold"  onChange={(e) => setSortType(e.target.value)}>                       
+                          <option className="dropdown-item" value="number">Number</option>
+                          <option value="distance">Hit Distance</option>                        
+                          <option value="totalHits">Total Hits</option>                        
+                    </select>
+                  </div>
                 </li>
 
               </ul>
@@ -137,16 +140,15 @@ function App() {
 
               <div className="card bg-success text-warning">
                 <div className="row">
-                  <div className="col-lg-4 mt-1">
-                    <span className="ps-5 margin-right">Select</span>
-                    <select id="rpp" className="dropdown btn btn-light dropdown-toggle ps-4"  onChange={(e) => setPageSize(e.target.value)}>
+                  <div className="col-lg-3 mt-1 margin-left fw-bold">
+                    <select id="rpp" className="dropdown btn btn-success dropdown-toggle ps-4 fw-bold"  onChange={(e) => setPageSize(e.target.value)}>
                       <option className="dropdown-item" value="10">10</option>
                       <option value="20">20</option>
                       <option value="30">30</option>
                       <option value="40">40</option>
                       <option value="50">50</option>
                     </select>
-                    <span className='ps-3'>rows per page</span>
+                    <span className='ps-3'>draws per page</span>
                   </div>
                   <div className="col-lg-8">
                     <button 
