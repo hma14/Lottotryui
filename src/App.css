@@ -68,7 +68,7 @@
   background: rgb(255, 255, 255);
   border: none;
   padding:  5px 15px 5px 15px;
-  color: blue;
+  color: rgb(9, 143, 38);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
   margin: 0 10px;
   cursor: pointer;
@@ -76,9 +76,9 @@
 
 .paginationItem.active {
   
-  background: rgb(241, 67, 67);
-  border: 1px solid rgb(233, 231, 231);
-  color: #ffffff; 
+  background: rgb(248, 51, 232);
+  border: 1px solid #fdfcfc;
+  color: #fdfcfc; 
   pointer-events: none;
 }
 
@@ -137,15 +137,12 @@ table {
   width: 100%;
 }
 
-
-.table-hover tbody tr:hover,
-.table-hover tbody tr:hover td,
-.table-hover tbody tr:hover th{
-    background-color:#f1dd69 !important;
-    color:rgb(236, 93, 177) !important;
-}
-
 .my-color-1
 {
   color:rgb(231, 137, 227);
+}
+
+
+.bg-greenyellow {
+  background-color: rgb(192, 235, 128) !important;
 }
