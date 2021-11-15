@@ -67,11 +67,25 @@ function App() {
 
   const [{data, json}] = useFetch(url, page, pageSize)
 
-  const pageLimit = 10
+  var pageLimit = 10
 
   const getPaginationGroup = ()  => {
+    pageLimit = totalPages <= pageLimit ? totalPages : pageLimit
     let start = Math.floor((page - 1) / pageLimit) * pageLimit
+    
     var remainingPages = totalPages - page
+    
+    if (remainingPages < 0 )
+    {
+      setPage(totalPages)
+      pageLimit = totalPages
+      remainingPages = 0
+    }
+    if (remainingPages === 0)
+    {
+      start = totalPages - 1
+    }
+    
     var arrayLength = remainingPages > 0 ? pageLimit : remainingPages + 1
     let array = new Array(arrayLength).fill().map((_, idx) => start + idx + 1)
     return array
