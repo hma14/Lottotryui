@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 
 import AllNumbersStatistics from './lottos/AllNumbersStatistics'
+import NumberDrowsInDistance from './lottos/NumberDrowsInDistance'
 import LottoTryLogo from './images/LottoTryLogo.png'
 
 
@@ -141,6 +142,7 @@ function App() {
                           <option className="dropdown-item" value="number">Sort by Number</option>
                           <option value="distance">Sort by Hit Distance</option>                        
                           <option value="totalHits">Sort by Total Hits</option>                        
+                          <option value="numberDraws">Number Draws Falling in Distances </option>                        
                     </select>
                   </div>
                 </li>
@@ -150,8 +152,10 @@ function App() {
 
             {data !== null ? (
             <>
-              {/* <BC49 lottoData={data}/>  */}
+            {
+              sortType === 'numberDraws' ? <NumberDrowsInDistance lottoData={data} columns={7} />  :
               <AllNumbersStatistics lottoData={data} sortType={sortType} />
+            }
 
               <div className="card bg-success text-warning">
                 <div className="row">
