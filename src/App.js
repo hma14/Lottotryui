@@ -7,6 +7,7 @@ import styled from 'styled-components'
 
 import AllNumbersStatistics from './lottos/AllNumbersStatistics'
 import NumberDrowsInDistance from './lottos/NumberDrowsInDistance'
+import LottoDraws from './lottos/LottoDraws'
 import LottoTryLogo from './images/LottoTryLogo.png'
 
 
@@ -61,6 +62,7 @@ function App() {
   const [pageSize, setPageSize] = useState(10)
   const [lottoName, setLottoName] = useState(1)
   const [sortType, setSortType] = useState('number');
+  const [lottoColumns, setLottoColumns] = useState(7);
 
 
 
@@ -114,6 +116,18 @@ function App() {
 
   }, [json, url, sortType])
 
+  const selectLotto = (value) => {
+    setLottoName(value)
+    switch(value) {
+      case "1": setLottoColumns(7)
+      break
+      case "2": setLottoColumns(7)
+      break
+      case "3": setLottoColumns(8)
+      break
+    }
+  }
+
 
 
   return (
@@ -130,7 +144,7 @@ function App() {
                 </li>
                 <li className="nav-item">              
                   {/* <span className='margin-right text-light'>Select Lotto </span> */}
-                  <select id="rpp" className="dropdown btn btn-success  dropdown-toggle mt-2 margin-right fw-bold"  onChange={(e) => setLottoName(e.target.value)}>                       
+                  <select id="rpp" className="dropdown btn btn-success  dropdown-toggle mt-2 margin-right fw-bold"  onChange={(e) => selectLotto(e.target.value)}>                       
                         <option className="dropdown-item" value="1">BC49</option>
                         <option value="2">Lotto649</option>
                         <option value="3">LottoMax</option>
@@ -142,6 +156,7 @@ function App() {
                           <option className="dropdown-item" value="number">Sort by Number</option>
                           <option value="distance">Sort by Hit Distance</option>                        
                           <option value="totalHits">Sort by Total Hits</option>                        
+                          <option value="lottoDraws">Lotto Draws</option>                        
                           <option value="numberDraws">Number Draws Falling in Distances </option>                        
                     </select>
                   </div>
@@ -153,7 +168,7 @@ function App() {
             {data !== null ? (
             <>
             {
-              sortType === 'numberDraws' ? <NumberDrowsInDistance lottoData={data} columns={7} />  :
+              sortType === 'lottoDraws' ? <LottoDraws lottoData={data} columns={lottoColumns} />  :
               <AllNumbersStatistics lottoData={data} sortType={sortType} />
             }
 
