@@ -13,7 +13,7 @@ function LottoDraws (props) {
     <div>
       
       {lottoData &&
-          <Table responsive className="table-default mb-4" borderless="true" size="sm" hover="true" >
+          <Table responsive className="table-primary mb-4" borderless="true" size="sm" hover="true" striped="true">
           <thead className="table-danger text-center">
               <tr>
                 <th className="text-light bg-info">Draws</th>
@@ -39,7 +39,15 @@ function LottoDraws (props) {
                           : '')}
                   </tr>
                )}                 
-          </tbody>       
+          </tbody>   
+          <tr>
+            <th className="text-light bg-info">Draws</th>
+            <th className="text-light bg-info">Date</th>
+            {lottoData.slice(0, 1).map(row => row.numbers.map((no) => (no.number < columns? 
+            (<th key={no.number} className='text-warning bg-success'>{no.number}</th>) : 
+            (no.number === columns ? (<th key={no.number} className='text-warning bg-success'>Bonus</th>) : ''))))}
+          </tr>
+    
         </Table>  }
 
         </div>

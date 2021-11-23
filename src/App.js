@@ -1,9 +1,10 @@
+import React from 'react'
 import './App.css'
 // import { useState, useEffect, createContext, useContext, useRef, useCallback, useMemo   } from "react"
 import { useState, useEffect } from "react"
 import useFetch from "./pages/useFetch"
 import styled from 'styled-components'
-
+// import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import AllNumbersStatistics from './lottos/AllNumbersStatistics'
 import NumberDrowsInDistance from './lottos/NumberDrowsInDistance'
@@ -114,17 +115,17 @@ function App() {
     var o = JSON.parse(json)
     setTotalPages(o.totalPages) 
 
-  }, [json, url, sortType])
+  }, [json, url, sortType, lottoColumns])
 
   const selectLotto = (value) => {
     setLottoName(value)
     switch(value) {
       case "1": setLottoColumns(7)
-      break
+      
       case "2": setLottoColumns(7)
-      break
+
       case "3": setLottoColumns(8)
-      break
+
     }
   }
 
@@ -168,10 +169,25 @@ function App() {
             {data !== null ? (
             <>
             {
-              sortType === 'lottoDraws' ? <LottoDraws lottoData={data} columns={lottoColumns} />  :
-              <AllNumbersStatistics lottoData={data} sortType={sortType} />
-            }
-
+              (() => {
+                switch (sortType) {
+                case  'lottoDraws':
+                  return (
+                    <LottoDraws lottoData={data} columns={lottoColumns} />
+                  )                 
+                case  'numberDraws':
+                  return (
+                  
+                    <NumberDrowsInDistance lottoData={data} rows={pageSize} />
+                  )
+                  default:
+                    return (
+                      <AllNumbersStatistics lottoData={data} sortType={sortType} />
+                    )
+                }
+              }) ()}
+              
+          
               <div className="card bg-success text-warning">
                 <div className="row">
                   <div className="col-lg-3 mt-1 margin-left fw-bold">
