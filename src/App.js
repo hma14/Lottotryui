@@ -120,11 +120,11 @@ function App() {
   const selectLotto = (value) => {
     setLottoName(value)
     switch(value) {
-      case "1": setLottoColumns(7)
+      case "BC49": return setLottoColumns(7)
       
-      case "2": setLottoColumns(7)
+      case "Lotto649": return setLottoColumns(7)
 
-      case "3": setLottoColumns(8)
+      case "LottoMax": return setLottoColumns(8)
 
     }
   }
@@ -145,20 +145,20 @@ function App() {
                 </li>
                 <li className="nav-item">              
                   {/* <span className='margin-right text-light'>Select Lotto </span> */}
-                  <select id="rpp" className="dropdown btn btn-success  dropdown-toggle mt-2 margin-right fw-bold"  onChange={(e) => selectLotto(e.target.value)}>                       
-                        <option className="dropdown-item" value="1">BC49</option>
-                        <option value="2">Lotto649</option>
-                        <option value="3">LottoMax</option>
+                  <select id="rpp" className="dropdown btn btn-success  dropdown-toggle mt-2 margin-right fw-bold"  
+                      onChange={(e) => selectLotto(e.target.value)}>    
+                      {['BC49', 'Lotto649', 'LottoMax'].map(lotto => (
+                        <option key={lotto} value={lotto}>{lotto}</option>
+                      ))}                                 
                   </select>
                 </li>
                 <li className="nav-item">   
                   <div className="mt-2 margin-left margin-right fw-bold">     
-                    <select id="rpp" className="dropdown btn btn-success  dropdown-toggle fw-bold"  onChange={(e) => setSortType(e.target.value)}>                       
-                          <option className="dropdown-item" value="number">Sort by Number</option>
-                          <option value="distance">Sort by Hit Distance</option>                        
-                          <option value="totalHits">Sort by Total Hits</option>                        
-                          <option value="lottoDraws">Lotto Draws</option>                        
-                          <option value="numberDraws">Number Draws Falling in Distances </option>                        
+                    <select id="rpp" className="dropdown btn btn-success  dropdown-toggle fw-bold"  
+                      onChange={(e) => setSortType(e.target.value)}>         
+                      {['number', 'distance', 'totalHits', 'lottoDraws', 'numberDraws'].map(sortType => (
+                        <option key={sortType} value={sortType}> Sort by {sortType}</option>
+                      ))}              
                     </select>
                   </div>
                 </li>
@@ -191,12 +191,12 @@ function App() {
               <div className="card bg-success text-warning">
                 <div className="row">
                   <div className="col-lg-3 mt-1 margin-left fw-bold">
-                    <select id="rpp" className="dropdown btn btn-success dropdown-toggle ps-4 fw-bold"  onChange={(e) => setPageSize(e.target.value)}>
-                      <option className="dropdown-item" value="10">10</option>
-                      <option value="20">20</option>
-                      <option value="30">30</option>
-                      <option value="40">40</option>
-                      <option value="50">50</option>
+                    <select id="rpp" className="dropdown btn btn-success dropdown-toggle ps-4 fw-bold"  
+                      value={pageSize}
+                      onChange={(e) => setPageSize(e.target.value)}>
+                      {[10, 20, 30, 40, 50].map(pageSize => (
+                        <option key={pageSize} value={pageSize}> {pageSize}</option>
+                      ))}
                     </select>
                     <span className='ps-3'>draws per page</span>
                   </div>
