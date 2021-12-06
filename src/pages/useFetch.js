@@ -13,7 +13,7 @@ const useFetch = (url, page, pageSize) => {
 
         (async () => {
             const result = await axios(newUrl)
-            setData(result.data.data)
+            setData(result.data)
             setPagingInfo(result.headers['x-pagination']) 
             
         })()

@@ -20,7 +20,7 @@ const AllNumbersStatistics = (props) => {
 
     
     <div>
-     {/* {console.log(lottoData)} */}
+      {console.log(lottoData)}
 
       {lottoData &&
           <Table responsive className="table-default mb-4" borderless="true" size="sm" hover="true" >
@@ -28,7 +28,7 @@ const AllNumbersStatistics = (props) => {
                 <tr>
                   <th className="text-light bg-info">Draws</th>
                   <th className="text-light bg-info">Date</th>
-                  {lottoData.slice(0, 1).map(row => row.numbers.map((no) => <th key={no.number} className='text-warning bg-success'>{no.number}</th>))}
+                  {lottoData.slice(0, 1).map(row => [...row.numbers].sort((a, b) => a.value > b.value ? 1 : -1).map((no) => <th key={no.value} className='text-warning bg-success'>{no.value}</th>))}
                 </tr>
             </thead>                           
             <tbody className='fw-bold' > 
@@ -36,17 +36,17 @@ const AllNumbersStatistics = (props) => {
                         <tr key={row.drawNumber}>
                             <td className="text-warning bg-primary">{row.drawNumber}</td>
                             <td className="text-warning bg-success">{moment(row.drawDate).format('yyyy-MM-DD')}</td>
-                            { [...row.numbers].sort((a, b) => (a[sortProperty] === b[sortProperty] ? (a.number > b.number ? 1 : -1) : (a[sortProperty] > b[sortProperty] ? 1 : -1))).map(no => 
+                            { [...row.numbers].sort((a, b) => (a[sortProperty] === b[sortProperty] ? (a.value > b.value ? 1 : -1) : (a[sortProperty] > b[sortProperty] ? 1 : -1))).map(no => 
                             no.isHit === true ? (no.isBonusNumber === true ?  
-                                                        (<td className='text-primary bg-warning' key={no.number}>{no.number}<br />
+                                                        (<td className='text-primary bg-warning' key={no.value}>{no.value}<br />
                                                         (<span className='text-danger fst-italic'>{no.numberofDrawsWhenHit}</span>)<br />
                                                         (<span className='text-secondary fst-italic'>{no.totalHits}</span>)</td>) : 
-                                                        (<td className='text-primary bg-greenyellow' key={no.number}>{no.number}<br />
+                                                        (<td className='text-primary bg-greenyellow' key={no.value}>{no.value}<br />
                                                         (<span className='text-danger fst-italic'>{no.numberofDrawsWhenHit}</span>)<br />
                                                         (<span className='text-secondary fst-italic'>{no.totalHits}</span>)</td>) )
                             
-                                              : (no.distance > 10 ? (<td className='text-success bg-light fw-bold' key={no.number}>{no.number}<br />(<span className='my-color-1 fst-italic'>{no.distance}</span>)<br />(<span className='text-primary fst-italic'>{no.totalHits}</span>)</td>) 
-                                              : (<td className='text-success bg-light fw-bold' key={no.number}>{no.number}<br />(<span className='text-success fst-italic'>{no.distance}</span>)<br />(<span className='text-primary fst-italic'>{no.totalHits}</span>)</td>))
+                                              : (no.distance > 10 ? (<td className='text-success bg-light fw-bold' key={no.value}>{no.value}<br />(<span className='my-color-1 fst-italic'>{no.distance}</span>)<br />(<span className='text-primary fst-italic'>{no.totalHits}</span>)</td>) 
+                                              : (<td className='text-success bg-light fw-bold' key={no.value}>{no.value}<br />(<span className='text-success fst-italic'>{no.distance}</span>)<br />(<span className='text-primary fst-italic'>{no.totalHits}</span>)</td>))
                             )
                           }
                         </tr>
@@ -55,7 +55,7 @@ const AllNumbersStatistics = (props) => {
               <tr>
                   <th className="text-light bg-info">Draws</th>
                   <th className="text-light bg-info">Date</th>
-                  {lottoData.slice(0, 1).map(row => row.numbers.map((no) => <th key={no.number} className='text-warning bg-success'>{no.number}</th>))}
+                  {lottoData.slice(0, 1).map(row => [...row.numbers].sort((a, b) => a.value > b.value ? 1 : -1).map((no) => <th key={no.value} className='text-warning bg-success'>{no.value}</th>))}
               </tr>             
           </Table>  }
      </div>

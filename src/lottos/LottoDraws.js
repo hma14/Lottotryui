@@ -18,9 +18,9 @@ function LottoDraws (props) {
               <tr>
                 <th className="text-light bg-info">Draws</th>
                 <th className="text-light bg-info">Date</th>
-                {lottoData.slice(0, 1).map(row => row.numbers.map((no) => (no.number < columns? 
-                (<th key={no.number} className='text-warning bg-success'>{no.number}</th>) : 
-                (no.number === columns ? (<th key={no.number} className='text-warning bg-success'>Bonus</th>) : ''))))}
+                {lottoData.slice(0, 1).map(row => [...row.numbers].sort((a, b) => (a.value > b.value ? 1 : -1)).map((no) => (no.value < columns? 
+                (<th key={no.value} className='text-warning bg-success'>{no.value}</th>) : 
+                (no.value === columns ? (<th key={no.value} className='text-warning bg-success'>Bonus</th>) : ''))))}
               </tr>
           </thead>                           
           <tbody className='fw-bold' > 
@@ -29,11 +29,11 @@ function LottoDraws (props) {
                       <td className="text-warning bg-primary">{row.drawNumber}</td>
                       <td className="text-warning bg-success">{moment(row.drawDate).format('yyyy-MM-DD')}</td>
                       {[...row.numbers]
-                        .sort((a, b) => (a.isBonusNumber === true && b.isBonusNumber === false && a.number > b.number ? 1 : -1)) 
-                        .sort((a, b) => (a.isBonusNumber === false && b.isBonusNumber === false && a.number < b.number ? -1 : 1))
+                        .sort((a, b) => (a.isBonusNumber === true && b.isBonusNumber === false && a.value > b.value ? 1 : -1)) 
+                        .sort((a, b) => (a.isBonusNumber === false && b.isBonusNumber === false && a.value < b.value ? -1 : 1))
                         .map(no => no.isHit === true ?  
-                          (<td className='text-primary bg-greenyellow' key={no.number}>
-                          <span className='fs-5 text-primary'>{no.number}    </span>
+                          (<td className='text-primary bg-greenyellow' key={no.value}>
+                          <span className='fs-5 text-primary'>{no.value}    </span>
                           (<span className='text-danger fst-italic'>{no.numberofDrawsWhenHit}</span>)
                           (<span className='text-secondary fst-italic'>{no.totalHits}</span>)</td>)
                           : '')}
@@ -43,9 +43,9 @@ function LottoDraws (props) {
           <tr>
             <th className="text-light bg-info">Draws</th>
             <th className="text-light bg-info">Date</th>
-            {lottoData.slice(0, 1).map(row => row.numbers.map((no) => (no.number < columns? 
-            (<th key={no.number} className='text-warning bg-success'>{no.number}</th>) : 
-            (no.number === columns ? (<th key={no.number} className='text-warning bg-success'>Bonus</th>) : ''))))}
+            {lottoData.slice(0, 1).map(row => [...row.numbers].sort((a, b) => (a.value > b.value ? 1 : -1)).map((no) => (no.value < columns? 
+                (<th key={no.value} className='text-warning bg-success'>{no.value}</th>) : 
+                (no.value === columns ? (<th key={no.value} className='text-warning bg-success'>Bonus</th>) : ''))))}
           </tr>
     
         </Table>  }

@@ -67,7 +67,7 @@ function App() {
 
 
 
-  let url = 'http://localhost:9090/api/lottonumbers?lottoname='   + lottoName
+  let url = 'http://localhost:9090/api/lottotypes?lottoName='   + lottoName
 
   const [{data, json}] = useFetch(url, page, pageSize)
 
