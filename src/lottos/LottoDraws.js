@@ -33,7 +33,7 @@ function LottoDraws (props) {
                         .sort((a, b) => (a.isBonusNumber === false && b.isBonusNumber === false && a.value < b.value ? -1 : 1))
                         .map(no => no.isHit === true ?  
                           (<td className='text-primary bg-greenyellow' key={no.value}>
-                          <span className='fs-5 text-primary'>{no.value}    </span>
+                          {no.isBonusNumber === true ? <span className='fs-5 text-success'>{no.value}</span> : <span className='fs-5 text-primary'>{no.value}</span>}
                           (<span className='text-danger fst-italic'>{no.numberofDrawsWhenHit}</span>)
                           (<span className='text-secondary fst-italic'>{no.totalHits}</span>)</td>)
                           : '')}
