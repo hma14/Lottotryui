@@ -19,11 +19,11 @@ const AllNumbersStatistics = (props) => {
   return (
 
     
-    <div>
+    <div className="tableFixHead">
       {console.log(lottoData)}
 
       {lottoData &&
-          <Table responsive className="table-default mb-4" borderless="true" size="sm" hover="true" >
+          <Table responsive className="table-default mb-4 tableFixHead" borderless="true" size="sm" hover="true" >
             <thead className="table-danger text-center">
                 <tr>
                   <th className="text-light bg-info">Draws</th>
