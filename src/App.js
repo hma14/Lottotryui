@@ -126,6 +126,8 @@ function App() {
 
       case "LottoMax": return setLottoColumns(8)
 
+      default:  return setLottoColumns(7) 
+
     }
   }
 
