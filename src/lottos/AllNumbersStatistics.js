@@ -1,6 +1,7 @@
 import React  from 'react'
 import {Table} from 'react-bootstrap'
 import moment   from 'moment'
+import classNames from 'classnames'
 
 import '../App.css'
 
@@ -59,38 +60,19 @@ const AllNumbersStatistics = (props) => {
   const getColors = (number) => {
     if (number.isHit === true)
     {
-      if (number.isBonusNumber === true) 
-      {
-        return (
-            <td className='text-primary bg-color10' key={number.value}>{number.value}<br />
-            (<span className='text-danger fst-italic'>{number.numberofDrawsWhenHit}</span>)<br />
-            (<span className='text-secondary fst-italic'>{number.totalHits}</span>)</td>
-          )
-      }
-      else {
-        return (
-            <td className='text-primary bg-greenyellow' key={number.value}>{number.value}<br />
-            (<span className='text-danger fst-italic'>{number.numberofDrawsWhenHit}</span>)<br />
-            (<span className='text-secondary fst-italic'>{number.totalHits}</span>)</td>
-          )
-      }
+      return (
+        <td className={ classNames('bg-color', {'my-color-2 bg-color12' : number.isBonusNumber}, {'my-color-2 bg-greenyellow' : !number.isBonusNumber})} key={number.value}>{number.value}<br />
+        (<span className='text-danger fst-italic'>{number.numberofDrawsWhenHit}</span>)<br />
+        (<span className='text-secondary fst-italic'>{number.totalHits}</span>)</td>
+      )
     }
     else {
-      if (number.distance > 10)
-      {
-        return (
-            <td className={getBgColors(sortType, number.distance)}  key={number.value}>{number.value}<br />
-            (<span className='my-color-1 fst-italic'>{number.distance}</span>)<br />
-            (<span className='text-primary fst-italic'>{number.totalHits}</span>)</td>
-          )
-      }
-      else {
-        return (
-            <td className={getBgColors(sortType, number.distance)} key={number.value}>{number.value}<br />
-            (<span className='text-success fst-italic'>{number.distance}</span>)<br />
-            (<span className='text-primary fst-italic'>{number.totalHits}</span>)</td>
-          )
-      }      
+
+      return (
+        <td className={getBgColors(sortType, number.distance)}  key={number.value}>{number.value}<br />
+        (<span className={classNames('txt-color', {'fst-italic my-color-1' : (number.distance > 10)}, {'fst-italic text-success' : (number.distance <= 10)})} >{number.distance}</span>)<br />
+        (<span className='text-primary fst-italic'>{number.totalHits}</span>)</td>
+      )
     }
   }
   
