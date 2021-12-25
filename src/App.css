@@ -93,7 +93,7 @@ table {
   border-spacing: 1;
   border: 0px solid black;
 
-  tr {
+/*   tr {
     :last-child {
       td {
         border-bottom: 2;
@@ -114,6 +114,11 @@ table {
       border-right: 2;
     }
   }
+ */  
+}
+
+thead {
+  flex: 0 0 auto;
 }
 
 .center {
@@ -146,6 +151,10 @@ table {
   color:rgb(16, 7, 66);
 }
 
+.my-color-3
+{
+  color:rgba(245, 9, 88, 0.616);
+}
 
 .bg-greenyellow {
   
@@ -250,5 +259,12 @@ table {
 }
 .bg-color25
 {
-  background-color: rgb(235, 198, 238)  !important;
+  background-color: rgb(181, 233, 157)  !important;
 }
+
+.sticky {
+  position:sticky;
+  top: 0 ;
+  z-index: 1;
+}
+

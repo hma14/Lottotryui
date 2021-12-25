@@ -57,17 +57,27 @@ const AllNumbersStatistics = (props) => {
     }
   }
 
+  const getHeader = () =>{
+    return (       
+        <tr>
+          <th className="text-light bg-info">Draws</th>
+          <th className="text-light bg-info">Date</th>
+          {lottoData.slice(0, 1).map(row => [...row.numbers].sort((a, b) => a.value > b.value ? 1 : -1).map((no) => <th key={no.value} className='text-warning bg-success'>{no.value}</th>))}
+        </tr>                      
+    )
+  }
+
   const getColors = (number) => {
     if (number.isHit === true)
     {
       return (
-        <td className={ classNames('bg-color', {'my-color-2 bg-color12' : number.isBonusNumber}, {'my-color-2 bg-greenyellow' : !number.isBonusNumber})} key={number.value}>{number.value}<br />
-        (<span className='text-danger fst-italic'>{number.numberofDrawsWhenHit}</span>)<br />
+        <td className={ classNames('bg-color', {'my-color-2 bg-color12' : number.isBonusNumber}, {'my-color-2 bg-greenyellow' : !number.isBonusNumber})} 
+        key={number.value}>{number.value}<br />
+        (<span className={ classNames('txt-color',  {'my-color-3 fst-italic' : (number.numberofDrawsWhenHit > 10) },  {'text-danger fst-italic' : (number.numberofDrawsWhenHit <= 10) } )}>{number.numberofDrawsWhenHit}</span>)<br />
         (<span className='text-secondary fst-italic'>{number.totalHits}</span>)</td>
       )
     }
     else {
-
       return (
         <td className={getBgColors(sortType, number.distance)}  key={number.value}>{number.value}<br />
         (<span className={classNames('txt-color', {'fst-italic my-color-1' : (number.distance > 10)}, {'fst-italic text-success' : (number.distance <= 10)})} >{number.distance}</span>)<br />
@@ -79,19 +89,13 @@ const AllNumbersStatistics = (props) => {
  
 
   return ( 
-    <div className="tableFixHead">
-      {console.log(lottoData)}
+
+    <div>
 
       {lottoData &&
-          <Table responsive className="table-default mb-4 tableFixHead" borderless="true" size="sm" hover="true" >
-            <thead className="table-danger text-center">
-                <tr>
-                  <th className="text-light bg-info">Draws</th>
-                  <th className="text-light bg-info">Date</th>
-                  {lottoData.slice(0, 1).map(row => [...row.numbers].sort((a, b) => a.value > b.value ? 1 : -1).map((no) => <th key={no.value} className='text-warning bg-success'>{no.value}</th>))}
-                </tr>
-            </thead>                           
-            <tbody className='fw-bold' > 
+          <Table responsive className="table-default mb-4" borderless="true" size="sm" hover="true" >
+             <thead  className="table-danger text-center"> {getHeader()} </thead>
+             <tbody className='fw-bold' > 
                  {lottoData.map(row =>                       
                         <tr key={row.drawNumber}>
                             <td className="text-warning bg-primary">{row.drawNumber}</td>
@@ -101,14 +105,11 @@ const AllNumbersStatistics = (props) => {
                               (a[sortProperty] > b[sortProperty] ? 1 : -1))).map(no => getColors(no))}
                         </tr>
                  )}                 
-            </tbody>       
-              <tr>
-                  <th className="text-light bg-info">Draws</th>
-                  <th className="text-light bg-info">Date</th>
-                  {lottoData.slice(0, 1).map(row => [...row.numbers].sort((a, b) => a.value > b.value ? 1 : -1).map((no) => <th key={no.value} className='text-warning bg-success'>{no.value}</th>))}
-              </tr>             
-          </Table>  }
-     </div>
+             </tbody>       
+            {getHeader()}           
+          </Table>  
+      }
+    </div>
   )
 }
 

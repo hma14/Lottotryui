@@ -137,8 +137,7 @@ function App() {
     <Styles>     
       {
         <div className="container-fluid">
-            {/* {console.log(data)} */}
-            <nav className="navbar navbar-expand-xl bg-success mb-1">
+            <nav className="navbar navbar-expand-xl bg-success sticky">
               <ul className="navbar-nav">
               <li className="nav-item">
                   <a className="navbar-brand" href="/images">
