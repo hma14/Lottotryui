@@ -7,7 +7,7 @@ const useFetch = (url, page, pageSize, drawNumber) => {
     //const [error, setError] = useState('')
 
     
-    let newUrl = url + '&SortOrder=-drawNumber' +'&pageNumber=' + page + '&pageSize=' + pageSize 
+    let newUrl = url + '&currentDrawNumber=' + drawNumber + '&SortOrder=-drawNumber' + '&pageNumber=' + page + '&pageSize=' + pageSize 
 
     useEffect(() => {
 
@@ -15,7 +15,7 @@ const useFetch = (url, page, pageSize, drawNumber) => {
             const result = await axios(newUrl)
             setData(result.data)
             setPagingInfo(result.headers['x-pagination']) 
-            
+            //console.log(newUrl)
         })()
 
     /*     

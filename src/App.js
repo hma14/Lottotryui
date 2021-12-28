@@ -68,7 +68,7 @@ function App() {
 
 
 
-  let url = 'http://localhost:9090/api/lottotypes?lottoName='   + lottoName + '&currentDrawNumber=' + drawNumber
+  let url = 'http://localhost:9090/api/lottotypes?lottoName='   + lottoName 
 
   const [{data, json}] = useFetch(url, page, pageSize, drawNumber)
 
@@ -115,10 +115,10 @@ function App() {
     
 
     var o = JSON.parse(json)
-    console.log(data)
+    //console.log(data)
     setTotalPages(o.totalPages) 
 
-  }, [json, url, sortType, data, lottoColumns])
+  }, [json, url, sortType, data, lottoColumns, lottoName, drawNumber])
 
   const selectLotto = (value) => {
     setLottoName(value)
