@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react"
 import axios from 'axios'
 
-const useFetch = (url, page, pageSize) => {
+const useFetch = (url, page, pageSize, drawNumber) => {
     const [data, setData] = useState([])
     const [pagingInfo, setPagingInfo] = useState('')
     //const [error, setError] = useState('')
 
     
-    let newUrl = url + '&SortOrder=-drawNumber' +'&pageNumber=' + page + '&pageSize=' + pageSize
+    let newUrl = url + '&SortOrder=-drawNumber' +'&pageNumber=' + page + '&pageSize=' + pageSize 
 
     useEffect(() => {
 

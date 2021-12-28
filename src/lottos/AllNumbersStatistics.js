@@ -74,14 +74,18 @@ const AllNumbersStatistics = (props) => {
         <td className={ classNames('bg-color', {'my-color-2 bg-color12' : number.isBonusNumber}, {'my-color-2 bg-greenyellow' : !number.isBonusNumber})} 
         key={number.value}>{number.value}<br />
         (<span className={ classNames('txt-color',  {'my-color-3 fst-italic' : (number.numberofDrawsWhenHit > 10) },  {'text-danger fst-italic' : (number.numberofDrawsWhenHit <= 10) } )}>{number.numberofDrawsWhenHit}</span>)<br />
-        (<span className='text-secondary fst-italic'>{number.totalHits}</span>)</td>
+        (<span className='text-secondary fst-italic'>{number.totalHits}</span>)
+        {number.isNextPotentialHit !== null && number.isNextPotentialHit === true ? (<><br />(<span className='text-danger fst-italic'>{number.isNextPotentialHit === true ? "PH" : ""}</span>)</>) : ""}
+        </td>
       )
     }
     else {
       return (
         <td className={getBgColors(sortType, number.distance)}  key={number.value}>{number.value}<br />
         (<span className={classNames('txt-color', {'fst-italic my-color-1' : (number.distance > 10)}, {'fst-italic text-success' : (number.distance <= 10)})} >{number.distance}</span>)<br />
-        (<span className='text-primary fst-italic'>{number.totalHits}</span>)</td>
+        (<span className='text-primary fst-italic'>{number.totalHits}</span>)
+        {number.isNextPotentialHit !== null && number.isNextPotentialHit === true ? (<><br />(<span className='text-danger fst-italic'>{number.isNextPotentialHit === true ? "PH" : ""}</span>)</>) : ""}
+        </td>
       )
     }
   }

@@ -61,15 +61,16 @@ function App() {
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [pageSize, setPageSize] = useState(10)
+  const [drawNumber, setDrawNumber] = useState('')
   const [lottoName, setLottoName] = useState(1)
   const [sortType, setSortType] = useState('number');
   const [lottoColumns, setLottoColumns] = useState(7);
 
 
 
-  let url = 'http://localhost:9090/api/lottotypes?lottoName='   + lottoName
+  let url = 'http://localhost:9090/api/lottotypes?lottoName='   + lottoName + '&currentDrawNumber=' + drawNumber
 
-  const [{data, json}] = useFetch(url, page, pageSize)
+  const [{data, json}] = useFetch(url, page, pageSize, drawNumber)
 
   var pageLimit = 10
 
@@ -112,13 +113,17 @@ function App() {
   
   useEffect(() => {
     
+
     var o = JSON.parse(json)
+    console.log(data)
     setTotalPages(o.totalPages) 
 
-  }, [json, url, sortType, lottoColumns])
+  }, [json, url, sortType, data, lottoColumns])
 
   const selectLotto = (value) => {
     setLottoName(value)
+    setDrawNumber('')
+
     switch(value) {
       case "BC49": return setLottoColumns(7)
       
@@ -129,6 +134,7 @@ function App() {
       default:  return setLottoColumns(7) 
 
     }
+
   }
 
 
@@ -163,6 +169,17 @@ function App() {
                     </select>
                   </div>
                 </li>
+                {data !== null ? 
+                (<li className="nav-item">   
+                  <div className="mt-2 margin-left margin-right fw-bold">     
+                    <select id="rpp" className="dropdown btn btn-success  dropdown-toggle fw-bold"  
+                      onChange={(e) => setDrawNumber(e.target.value)}>         
+                      {data.map(draw => (
+                        <option key={draw.drawNumber} value={draw.drawNumber}> Draw: {draw.drawNumber}</option>
+                      ))}              
+                    </select>
+                  </div>
+                </li>) : '' }
 
               </ul>
             </nav>
