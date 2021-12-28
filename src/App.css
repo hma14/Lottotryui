@@ -268,3 +268,6 @@ thead {
   z-index: 1;
 }
 
+.bg-color-ph {
+  background-color: rgb(235, 197, 218)  !important;
+}

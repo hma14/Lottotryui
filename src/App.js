@@ -196,11 +196,11 @@ function App() {
                 case  'numberDraws':
                   return (
                   
-                    <NumberDrowsInDistance lottoData={data} rows={pageSize} />
+                    <NumberDrowsInDistance lottoData={data} rows={pageSize}/>
                   )
                   default:
                     return (
-                      <AllNumbersStatistics lottoData={data} sortType={sortType} />
+                      <AllNumbersStatistics lottoData={data} sortType={sortType}  drawNumber={drawNumber}  />
                     )
                 }
               }) ()}
@@ -212,7 +212,7 @@ function App() {
                     <select id="rpp" className="dropdown btn btn-success dropdown-toggle ps-4 fw-bold"  
                       value={pageSize}
                       onChange={(e) => setPageSize(e.target.value)}>
-                      {[5, 10, 20, 30, 40, 50].map(pageSize => (
+                      {[5, 10, 20, 30, 40, 50, 100].map(pageSize => (
                         <option key={pageSize} value={pageSize}> {pageSize}</option>
                       ))}
                     </select>

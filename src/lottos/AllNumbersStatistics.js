@@ -9,8 +9,7 @@ import '../App.css'
 
 const AllNumbersStatistics = (props) => {
 
-  const {lottoData, sortType} = props 
-
+  const {lottoData, sortType, drawNumber} = props 
 
   const types = {
     number: 'number',
@@ -19,10 +18,10 @@ const AllNumbersStatistics = (props) => {
   }
   const sortProperty = types[sortType]
 
-  const getBgColors = (sortType, distance) => {
+  const getBgColors = (sortType, number) => {
     if (sortType === types.distance)
     {
-      switch(distance)
+      switch(number.distance)
       {
         case 1: return 'bg-color1 text-success fw-bold'
         case 2: return 'bg-color2 text-success fw-bold'
@@ -53,6 +52,8 @@ const AllNumbersStatistics = (props) => {
       }
     }
     else{
+      if (number.isNextPotentialHit === true)
+        return 'text-success bg-color-ph fw-bold'
       return  'text-success bg-light fw-bold'
     }
   }
@@ -70,21 +71,22 @@ const AllNumbersStatistics = (props) => {
   const getColors = (number) => {
     if (number.isHit === true)
     {
+      
       return (
         <td className={ classNames('bg-color', {'my-color-2 bg-color12' : number.isBonusNumber}, {'my-color-2 bg-greenyellow' : !number.isBonusNumber})} 
         key={number.value}>{number.value}<br />
         (<span className={ classNames('txt-color',  {'my-color-3 fst-italic' : (number.numberofDrawsWhenHit > 10) },  {'text-danger fst-italic' : (number.numberofDrawsWhenHit <= 10) } )}>{number.numberofDrawsWhenHit}</span>)<br />
         (<span className='text-secondary fst-italic'>{number.totalHits}</span>)
-        {number.isNextPotentialHit !== null && number.isNextPotentialHit === true ? (<><br />(<span className='text-danger fst-italic'>{number.isNextPotentialHit === true ? "PH" : ""}</span>)</>) : ""}
+        {/* {number.isNextPotentialHit !== null && number.isNextPotentialHit === true ? (<><br />(<span className='text-danger fst-italic'>{number.isNextPotentialHit === true ? "PH" : ""}</span>)</>) : ""} */}
         </td>
       )
     }
     else {
       return (
-        <td className={getBgColors(sortType, number.distance)}  key={number.value}>{number.value}<br />
+        <td className={getBgColors(sortType, number)}  key={number.value}>{number.value}<br />
         (<span className={classNames('txt-color', {'fst-italic my-color-1' : (number.distance > 10)}, {'fst-italic text-success' : (number.distance <= 10)})} >{number.distance}</span>)<br />
         (<span className='text-primary fst-italic'>{number.totalHits}</span>)
-        {number.isNextPotentialHit !== null && number.isNextPotentialHit === true ? (<><br />(<span className='text-danger fst-italic'>{number.isNextPotentialHit === true ? "PH" : ""}</span>)</>) : ""}
+        {/* {number.isNextPotentialHit !== null && number.isNextPotentialHit === true ? (<><br />(<span className='text-danger fst-italic'>{number.isNextPotentialHit === true ? "PH" : ""}</span>)</>) : ""} */}
         </td>
       )
     }
