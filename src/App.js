@@ -60,7 +60,7 @@ function App() {
 
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
+  const [pageSize, setPageSize] = useState(50)
   const [drawNumber, setDrawNumber] = useState('')
   const [lottoName, setLottoName] = useState(1)
   const [sortType, setSortType] = useState('number');
@@ -143,7 +143,7 @@ function App() {
     <Styles>     
       {
         <div className="container-fluid">
-            <nav className="navbar navbar-expand-xl bg-success sticky">
+            <nav className="navbar navbar-expand-xl bg-success sticky noqII">
               <ul className="navbar-nav">
               <li className="nav-item">
                   <a className="navbar-brand" href="/images">
@@ -151,17 +151,18 @@ function App() {
                   </a>
                 </li>
                 <li className="nav-item">              
-                  {/* <span className='margin-right text-light'>Select Lotto </span> */}
-                  <select id="rpp" className="dropdown btn btn-success  dropdown-toggle mt-2 margin-right fw-bold"  
-                      onChange={(e) => selectLotto(e.target.value)}>    
-                      {['BC49', 'Lotto649', 'LottoMax'].map(lotto => (
-                        <option key={lotto} value={lotto}>{lotto}</option>
-                      ))}                                 
-                  </select>
+                  <div className="mt-2 margin-left margin-right fw-bold">
+                    <select id="rpp" className="dropdown btn btn-success  dropdown-toggle margin-right fw-bold"  
+                        onChange={(e) => selectLotto(e.target.value)}>    
+                        {['BC49', 'Lotto649', 'LottoMax'].map(lotto => (
+                          <option key={lotto} value={lotto}>{lotto}</option>
+                        ))}                                 
+                    </select>
+                  </div>
                 </li>
                 <li className="nav-item">   
                   <div className="mt-2 margin-left margin-right fw-bold">     
-                    <select id="rpp" className="dropdown btn btn-success  dropdown-toggle fw-bold"  
+                    <select id="rpp" className="dropdown btn btn-success  dropdown-toggle  fw-bold"  
                       onChange={(e) => setSortType(e.target.value)}>         
                       {['number', 'distance', 'totalHits', 'lottoDraws', 'numberDraws'].map(sortType => (
                         <option key={sortType} value={sortType}> Sort by {sortType}</option>
