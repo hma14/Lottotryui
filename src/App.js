@@ -74,6 +74,8 @@ function App() {
 
   var pageLimit = 10
 
+  
+
   const getPaginationGroup = ()  => {
     pageLimit = totalPages <= pageLimit ? totalPages : pageLimit
     let start = Math.floor((page - 1) / pageLimit) * pageLimit
@@ -115,12 +117,13 @@ function App() {
     
 
     var o = JSON.parse(json)
-    //console.log(data)
+    
     setTotalPages(o.totalPages) 
 
   }, [json, url, sortType, data, lottoColumns, lottoName, drawNumber])
 
   const selectLotto = (value) => {
+    console.log(value)
     setLottoName(value)
     setDrawNumber('')
 
@@ -130,6 +133,9 @@ function App() {
       case "Lotto649": return setLottoColumns(7)
 
       case "LottoMax": return setLottoColumns(8)
+
+      case "DailyGrand": return setLottoColumns(5)
+      case "DailyGrand_GrandNumber": return setLottoColumns(1)
 
       default:  return setLottoColumns(7) 
 
@@ -154,7 +160,7 @@ function App() {
                   <div className="mt-2 margin-left margin-right fw-bold">
                     <select id="rpp" className="dropdown btn btn-success  dropdown-toggle margin-right fw-bold"  
                         onChange={(e) => selectLotto(e.target.value)}>    
-                        {['BC49', 'Lotto649', 'LottoMax'].map(lotto => (
+                        {['BC49', 'Lotto649', 'LottoMax', 'DailyGrand', 'DailyGrand_GrandNumber'].map(lotto => (
                           <option key={lotto} value={lotto}>{lotto}</option>
                         ))}                                 
                     </select>

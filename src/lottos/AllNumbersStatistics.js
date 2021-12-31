@@ -73,7 +73,7 @@ const AllNumbersStatistics = (props) => {
     {
       
       return (
-        <td className={ classNames('bg-color', {'my-color-2 bg-color12' : number.isBonusNumber}, {'my-color-2 bg-greenyellow' : !number.isBonusNumber})} 
+        <td className={ classNames('bg-color', {'my-color-2 bg-color12' : number.isBonusNumber}, {'my-color-2 bg-greenyellow' : !number.isBonusNumber}, {'bg-color5 bg-greenyellow' : number.isNextPotentialHit === true})} 
         key={number.value}>{number.value}<br />
         (<span className={ classNames('txt-color',  {'my-color-3 fst-italic' : (number.numberofDrawsWhenHit > 10) },  {'text-danger fst-italic' : (number.numberofDrawsWhenHit <= 10) } )}>{number.numberofDrawsWhenHit}</span>)<br />
         (<span className='text-secondary fst-italic'>{number.totalHits}</span>)
