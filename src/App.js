@@ -185,7 +185,7 @@ function App() {
                     <select id="rpp" className="dropdown btn btn-success  dropdown-toggle fw-bold"  
                       onChange={(e) => setDrawNumber(e.target.value)}>         
                       {data.map(draw => (
-                        <option key={draw.drawNumber} value={draw.drawNumber}> Draw: {draw.drawNumber}</option>
+                        <option key={draw.drawNumber} value={draw.drawNumber}> Draw - {draw.drawNumber}</option>
                       ))}              
                     </select>
                   </div>
