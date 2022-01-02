@@ -68,7 +68,7 @@ function App() {
 
 
 
-  let url = 'https://api.lottotry.com/api/lottotypes?lottoName='   + lottoName 
+  let url = 'https://lottotryapi.netlify.app/api/lottotypes?lottoName='   + lottoName 
 
   //let url = 'http://localhost:9090/api/lottotypes?lottoName='   + lottoName 
 
