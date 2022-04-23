@@ -10,6 +10,7 @@ function LottoDraws (props) {
 
   return (
 
+    
     <div>
       
       {lottoData &&
@@ -18,7 +19,7 @@ function LottoDraws (props) {
               <tr>
                 <th className="text-light bg-info">Draws</th>
                 <th className="text-light bg-info">Date</th>
-                {lottoData.slice(0, 1).map(row => [...row.numbers].sort((a, b) => (a.value > b.value ? 1 : -1)).map((no) => (no.value < columns? 
+                {lottoData.slice(0, 1).map(row => row.numbers.sort((a, b) => (a.value > b.value ? 1 : -1)).map((no) => (no.value < columns? 
                 (<th key={no.value} className='text-warning bg-success'>{no.value}</th>) : 
                 (no.value === columns ? (<th key={no.value} className='text-warning bg-success'>Bonus</th>) : ''))))}
               </tr>
@@ -28,7 +29,8 @@ function LottoDraws (props) {
                   <tr key={row.drawNumber}>
                       <td className="text-warning bg-primary">{row.drawNumber}</td>
                       <td className="text-warning bg-success">{moment(row.drawDate).format('yyyy-MM-DD')}</td>
-                      {[...row.numbers]
+                      
+                      {row.numbers
                         .sort((a, b) => (a.isBonusNumber === true && b.isBonusNumber === false && a.value > b.value ? 1 : -1)) 
                         .sort((a, b) => (a.isBonusNumber === false && b.isBonusNumber === false && a.value < b.value ? -1 : 1))
                         .map(no => no.isHit === true ?  
@@ -36,7 +38,7 @@ function LottoDraws (props) {
                           {no.isBonusNumber === true ? <span className='fs-5 text-success'>{no.value}</span> : <span className='fs-5 text-primary'>{no.value}</span>}
                           (<span className='text-danger fst-italic'>{no.numberofDrawsWhenHit}</span>)
                           (<span className='text-secondary fst-italic'>{no.totalHits}</span>)</td>)
-                          : '')}
+                          : '') }
                   </tr>
                )}                 
           </tbody>   

@@ -68,34 +68,32 @@ function App() {
 
 
 
-  let url = 'http://api.lottotry.com/api/lottotypes?lottoName='   + lottoName 
+  let url = 'http://api.lottotry.com/api/lottotypes?lottoName=' + lottoName
 
-  //let url = 'http://localhost:9090/api/lottotypes?lottoName='   + lottoName 
+  //let url = 'http://localhost:9091/api/lottotypes?lottoName='   + lottoName 
 
 
-  const [{data, json}] = useFetch(url, page, pageSize, drawNumber)
+  const [{ data, json }] = useFetch(url, page, pageSize, drawNumber)
 
   var pageLimit = 10
 
-  
 
-  const getPaginationGroup = ()  => {
+
+  const getPaginationGroup = () => {
     pageLimit = totalPages <= pageLimit ? totalPages : pageLimit
     let start = Math.floor((page - 1) / pageLimit) * pageLimit
-    
+
     var remainingPages = totalPages - page
-    
-    if (remainingPages < 0 )
-    {
+
+    if (remainingPages < 0) {
       setPage(totalPages)
       pageLimit = totalPages
       remainingPages = 0
     }
-    if (remainingPages === 0)
-    {
+    if (remainingPages === 0) {
       start = totalPages - 1
     }
-    
+
     var arrayLength = remainingPages > 0 ? pageLimit : remainingPages + 1
     let array = new Array(arrayLength).fill().map((_, idx) => start + idx + 1)
     return array
@@ -108,31 +106,32 @@ function App() {
 
   function goToNextPage() {
     setPage((page) => page + 1)
-    
+
   }
 
   function goToPreviousPage() {
     setPage((page) => page - 1)
   }
 
-  
+
   useEffect(() => {
-    
+
 
     var o = JSON.parse(json)
+
+    setTotalPages(o.totalPages)
     
-    setTotalPages(o.totalPages) 
 
   }, [json, url, sortType, data, lottoColumns, lottoName, drawNumber])
 
   const selectLotto = (value) => {
-    console.log(value)
+    //console.log(value)
     setLottoName(value)
     setDrawNumber('')
 
-    switch(value) {
+    switch (value) {
       case "BC49": return setLottoColumns(7)
-      
+
       case "Lotto649": return setLottoColumns(7)
 
       case "LottoMax": return setLottoColumns(8)
@@ -140,7 +139,7 @@ function App() {
       case "DailyGrand": return setLottoColumns(5)
       case "DailyGrand_GrandNumber": return setLottoColumns(1)
 
-      default:  return setLottoColumns(7) 
+      default: return setLottoColumns(7)
 
     }
 
@@ -149,77 +148,77 @@ function App() {
 
 
   return (
-    <Styles>     
+    <Styles>
       {
         <div className="container-fluid">
-            <nav className="navbar navbar-expand-xl bg-success sticky noqII">
-              <ul className="navbar-nav">
+          <nav className="navbar navbar-expand-xl bg-success sticky noqII">
+            <ul className="navbar-nav">
               <li className="nav-item">
-                  <a className="navbar-brand" href="/images">
-                    <img src={LottoTryLogo} className="img-fluid" alt="Lottotry Logo" width="50%" />
-                  </a>
-                </li>
-                <li className="nav-item">              
+                <a className="navbar-brand" href="/images">
+                  <img src={LottoTryLogo} className="img-fluid" alt="Lottotry Logo" width="50%" />
+                </a>
+              </li>
+              <li className="nav-item">
+                <div className="mt-2 margin-left margin-right fw-bold">
+                  <select id="rpp" className="dropdown btn btn-success  dropdown-toggle margin-right fw-bold"
+                    onChange={(e) => selectLotto(e.target.value)}>
+                    {['BC49', 'Lotto649', 'LottoMax', 'DailyGrand', 'DailyGrand_GrandNumber'].map(lotto => (
+                      <option key={lotto} value={lotto}>{lotto}</option>
+                    ))}
+                  </select>
+                </div>
+              </li>
+              <li className="nav-item">
+                <div className="mt-2 margin-left margin-right fw-bold">
+                  <select id="rpp" className="dropdown btn btn-success  dropdown-toggle  fw-bold"
+                    onChange={(e) => setSortType(e.target.value)}>
+                    {['number', 'distance', 'totalHits', 'lottoDraws', 'numberDraws'].map(sortType => (
+                      <option key={sortType} value={sortType}> Sort by {sortType}</option>
+                    ))}
+                  </select>
+                </div>
+              </li>
+              {/* {data !== null ?
+                (<li className="nav-item">
                   <div className="mt-2 margin-left margin-right fw-bold">
-                    <select id="rpp" className="dropdown btn btn-success  dropdown-toggle margin-right fw-bold"  
-                        onChange={(e) => selectLotto(e.target.value)}>    
-                        {['BC49', 'Lotto649', 'LottoMax', 'DailyGrand', 'DailyGrand_GrandNumber'].map(lotto => (
-                          <option key={lotto} value={lotto}>{lotto}</option>
-                        ))}                                 
-                    </select>
-                  </div>
-                </li>
-                <li className="nav-item">   
-                  <div className="mt-2 margin-left margin-right fw-bold">     
-                    <select id="rpp" className="dropdown btn btn-success  dropdown-toggle  fw-bold"  
-                      onChange={(e) => setSortType(e.target.value)}>         
-                      {['number', 'distance', 'totalHits', 'lottoDraws', 'numberDraws'].map(sortType => (
-                        <option key={sortType} value={sortType}> Sort by {sortType}</option>
-                      ))}              
-                    </select>
-                  </div>
-                </li>
-                {data !== null ? 
-                (<li className="nav-item">   
-                  <div className="mt-2 margin-left margin-right fw-bold">     
-                    <select id="rpp" className="dropdown btn btn-success  dropdown-toggle fw-bold"  
-                      onChange={(e) => setDrawNumber(e.target.value)}>         
+                    <select id="rpp" className="dropdown btn btn-success  dropdown-toggle fw-bold"
+                      onChange={(e) => setDrawNumber(e.target.value)}>
                       {data.map(draw => (
                         <option key={draw.drawNumber} value={draw.drawNumber}> Draw - {draw.drawNumber}</option>
-                      ))}              
+                      ))}
                     </select>
                   </div>
-                </li>) : '' }
+                </li>) : ''} */}
 
-              </ul>
-            </nav>
+            </ul>
+          </nav>
 
-            {data !== null ? (
+          {data !== null ? (
             <>
-            {
-              (() => {
-                switch (sortType) {
-                case  'lottoDraws':
-                  return (
-                    <LottoDraws lottoData={data} columns={lottoColumns} />
-                  )                 
-                case  'numberDraws':
-                  return (
-                  
-                    <NumberDrowsInDistance lottoData={data} rows={pageSize}/>
-                  )
-                  default:
-                    return (
-                      <AllNumbersStatistics lottoData={data} sortType={sortType}  drawNumber={drawNumber}  />
-                    )
-                }
-              }) ()}
-              
-          
+              {
+                (() => {
+                  switch (sortType) {
+                    case 'lottoDraws':
+                      return (
+                        <LottoDraws lottoData={data} columns={lottoColumns} />
+                      )
+                    case 'numberDraws':
+                      return (
+
+                        <NumberDrowsInDistance lottoData={data} rows={pageSize} />
+                      )
+                    default:
+                      return (
+                        <AllNumbersStatistics lottoData={data} sortType={sortType} drawNumber={drawNumber} />
+                      )
+                  }
+                })()}
+
+
               <div className="card bg-success text-warning">
                 <div className="row">
                   <div className="col-lg-3 mt-1 margin-left fw-bold">
-                    <select id="rpp" className="dropdown btn btn-success dropdown-toggle ps-4 fw-bold"  
+                    <select id="rpp" className="dropdown btn btn-success dropdown-toggle ps-4 fw-bold"
                       value={pageSize}
                       onChange={(e) => setPageSize(e.target.value)}>
                       {[5, 10, 20, 30, 40, 50, 100].map(pageSize => (
@@ -229,39 +228,39 @@ function App() {
                     <span className='ps-3'>draws per page</span>
                   </div>
                   <div className="col-lg-8">
-                    <button 
+                    <button
                       type="button"
                       onClick={goToPreviousPage}
                       className={`prev btn btn-success fw-bold ${page === 1 ? 'disabled' : ''}`}
                     >Prev</button>
 
                     {getPaginationGroup().map((item, index) => (
-                        <button 
+                      <button
                         type="button"
                         key={index}
                         onClick={changePage}
                         className={`paginationItem btn btn-secondary  fw-bold ${page === item ? 'active' : null}`}
-                        >
+                      >
                         <span>{item}</span>
-                        </button>
+                      </button>
                     ))}
 
-                    <button 
+                    <button
                       type="button"
                       onClick={goToNextPage}
                       className={`next btn btn-success  fw-bold ${page === totalPages ? 'disabled' : ''}`}
-                      >Next</button>
+                    >Next</button>
                   </div>
                 </div>
               </div>
-            </>              
-              ) : (
-                <h1>No data to display</h1>
-              )}
+            </>
+          ) : (
+            <h1>No data to display</h1>
+          )}
 
-        </div>   
-      }                         
-  </Styles>
+        </div>
+      }
+    </Styles>
   )
 }
 
