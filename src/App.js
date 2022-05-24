@@ -9,7 +9,10 @@ import styled from 'styled-components'
 import AllNumbersStatistics from './lottos/AllNumbersStatistics'
 import NumberDrowsInDistance from './lottos/NumberDrowsInDistance'
 import LottoDraws from './lottos/LottoDraws'
+import PredictDraws from './lottos/PredictDraws'
 import LottoTryLogo from './images/LottoTryLogo.png'
+import { Last } from 'react-bootstrap/esm/PageItem'
+import { MAX_RETRY } from 'netlify/src/methods/retry'
 
 
 const Styles = styled.div`
@@ -57,14 +60,16 @@ const Styles = styled.div`
 function App() {
 
 
-
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [pageSize, setPageSize] = useState(50)
-  const [drawNumber, setDrawNumber] = useState('')
+  const [drawNumber, setDrawNumber] = useState(1)
   const [lottoName, setLottoName] = useState(1)
-  const [sortType, setSortType] = useState('number');
-  const [lottoColumns, setLottoColumns] = useState(7);
+  const [sortType, setSortType] = useState('number')
+  const [lottoColumns, setLottoColumns] = useState(7)
+  const [drawData, setDrawData] = useState(null)
+  const [numberRange, setNumberRange] = useState(49)
+
 
 
 
@@ -74,6 +79,7 @@ function App() {
 
 
   const [{ data, json }] = useFetch(url, page, pageSize, drawNumber)
+  
 
   var pageLimit = 10
 
@@ -113,6 +119,10 @@ function App() {
     setPage((page) => page - 1)
   }
 
+  /* function setDrawData(lottoName, drawNumber) {
+      drawData = data.map(row => row.drawNumber == drawNumber && row.lottoName == lottoName)
+  }
+ */
 
   useEffect(() => {
 
@@ -120,28 +130,44 @@ function App() {
     var o = JSON.parse(json)
 
     setTotalPages(o.totalPages)
-    
+
+    setDrawData(data[0])
 
   }, [json, url, sortType, data, lottoColumns, lottoName, drawNumber])
 
   const selectLotto = (value) => {
     //console.log(value)
     setLottoName(value)
-    setDrawNumber('')
+
 
     switch (value) {
-      case "BC49": return setLottoColumns(7)
+      case "BC49": 
+      setNumberRange(49)
+      return setLottoColumns(7)
 
-      case "Lotto649": return setLottoColumns(7)
+      case "Lotto649": 
+      setNumberRange(49)
+      return setLottoColumns(7)
 
-      case "LottoMax": return setLottoColumns(8)
+      case "LottoMax": 
+      setNumberRange(50)
+      return setLottoColumns(8)
 
-      case "DailyGrand": return setLottoColumns(5)
-      case "DailyGrand_GrandNumber": return setLottoColumns(1)
+      case "DailyGrand": 
+      setNumberRange(49)
+      return setLottoColumns(5)
+
+
+      case "DailyGrand_GrandNumber": 
+      setNumberRange(7)
+      return setLottoColumns(1)
 
       default: return setLottoColumns(7)
 
+
+
     }
+
 
   }
 
@@ -172,7 +198,7 @@ function App() {
                 <div className="mt-2 margin-left margin-right fw-bold">
                   <select id="rpp" className="dropdown btn btn-success  dropdown-toggle  fw-bold"
                     onChange={(e) => setSortType(e.target.value)}>
-                    {['number', 'distance', 'totalHits', 'lottoDraws', 'numberDraws'].map(sortType => (
+                    {['number', 'distance', 'totalHits', 'lottoDraws', 'numberDraws', 'predictDraws'].map(sortType => (
                       <option key={sortType} value={sortType}> Sort by {sortType}</option>
                     ))}
                   </select>
@@ -204,8 +230,11 @@ function App() {
                       )
                     case 'numberDraws':
                       return (
-
                         <NumberDrowsInDistance lottoData={data} rows={pageSize} />
+                      )
+                    case 'predictDraws':
+                      return (
+                        <PredictDraws lottoData={drawData} columns={lottoColumns} numberRange={numberRange} />
                       )
                     default:
                       return (
@@ -214,45 +243,45 @@ function App() {
                   }
                 })()}
 
-
-              <div className="card bg-success text-warning">
-                <div className="row">
-                  <div className="col-lg-3 mt-1 margin-left fw-bold">
-                    <select id="rpp" className="dropdown btn btn-success dropdown-toggle ps-4 fw-bold"
-                      value={pageSize}
-                      onChange={(e) => setPageSize(e.target.value)}>
-                      {[5, 10, 20, 30, 40, 50, 100].map(pageSize => (
-                        <option key={pageSize} value={pageSize}> {pageSize}</option>
-                      ))}
-                    </select>
-                    <span className='ps-3'>draws per page</span>
-                  </div>
-                  <div className="col-lg-8">
-                    <button
-                      type="button"
-                      onClick={goToPreviousPage}
-                      className={`prev btn btn-success fw-bold ${page === 1 ? 'disabled' : ''}`}
-                    >Prev</button>
-
-                    {getPaginationGroup().map((item, index) => (
+              {sortType !== 'predictDraws' ? 
+                (<div className="card bg-success text-warning">
+                  <div className="row">
+                    <div className="col-lg-3 mt-1 margin-left fw-bold">
+                      <select id="rpp" className="dropdown btn btn-success dropdown-toggle ps-4 fw-bold"
+                        value={pageSize}
+                        onChange={(e) => setPageSize(e.target.value)}>
+                        {[5, 10, 20, 30, 40, 50, 100].map(pageSize => (
+                          <option key={pageSize} value={pageSize}> {pageSize}</option>
+                        ))}
+                      </select>
+                      <span className='ps-3'>draws per page</span>
+                    </div>
+                    <div className="col-lg-8">
                       <button
                         type="button"
-                        key={index}
-                        onClick={changePage}
-                        className={`paginationItem btn btn-secondary  fw-bold ${page === item ? 'active' : null}`}
-                      >
-                        <span>{item}</span>
-                      </button>
-                    ))}
+                        onClick={goToPreviousPage}
+                        className={`prev btn btn-success fw-bold ${page === 1 ? 'disabled' : ''}`}
+                      >Prev</button>
 
-                    <button
-                      type="button"
-                      onClick={goToNextPage}
-                      className={`next btn btn-success  fw-bold ${page === totalPages ? 'disabled' : ''}`}
-                    >Next</button>
+                      {getPaginationGroup().map((item, index) => (
+                        <button
+                          type="button"
+                          key={index}
+                          onClick={changePage}
+                          className={`paginationItem btn btn-secondary  fw-bold ${page === item ? 'active' : null}`}
+                        >
+                          <span>{item}</span>
+                        </button>
+                      ))}
+
+                      <button
+                        type="button"
+                        onClick={goToNextPage}
+                        className={`next btn btn-success  fw-bold ${page === totalPages ? 'disabled' : ''}`}
+                      >Next</button>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </div>) : ''}
             </>
           ) : (
             <h1>No data to display</h1>
