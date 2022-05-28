@@ -27,14 +27,14 @@ const PredictDraws = (props) => {
     let lastHits = getLastHitNumbers()
     var indx = Math.random() * (lastHits.length)
     pred.push(lastHits[parseInt(indx)])
-    
+
     // select 3 groups based on totalHits
     var arr = getTotalHitsNumbers()
     let low = arr[0]
     let middle = arr[1]
     let high = arr[2]
 
-    
+
 
     // take 1 low
     indx = Math.random() * low.length
@@ -48,8 +48,7 @@ const PredictDraws = (props) => {
     pred.push(middle[parseInt(indx)].value)
 
     pred = [...new Set(pred)]
-    if (pred.length < 4)
-    {
+    if (pred.length < 4) {
       indx = Math.random() * middle.length
       pred.push(middle[parseInt(indx)].value)
     }
@@ -57,20 +56,19 @@ const PredictDraws = (props) => {
     // take 3 high
     indx = Math.random() * high.length
     pred.push(high[parseInt(indx)].value)
-    
-    indx = Math.random() * high.length
-    pred.push(high[parseInt(indx)].value)
-    
+
     indx = Math.random() * high.length
     pred.push(high[parseInt(indx)].value)
 
-   /*  pred.push(parseInt((high[0].value + (Math.random() * (high[high.length - 1].value - high[0].value)))))
-    pred.push(parseInt((high[0].value + (Math.random() * (high[high.length - 1].value - high[0].value)))))
-    pred.push(parseInt((high[0].value + (Math.random() * (high[high.length - 1].value - high[0].value))))) */
+    indx = Math.random() * high.length
+    pred.push(high[parseInt(indx)].value)
+
+    /*  pred.push(parseInt((high[0].value + (Math.random() * (high[high.length - 1].value - high[0].value)))))
+     pred.push(parseInt((high[0].value + (Math.random() * (high[high.length - 1].value - high[0].value)))))
+     pred.push(parseInt((high[0].value + (Math.random() * (high[high.length - 1].value - high[0].value))))) */
 
     pred = [...new Set(pred)]
-    if (pred.length < columns - 2)
-    {
+    if (pred.length < columns - 2) {
       indx = Math.random() * high.length
       pred.push(high[parseInt(indx)].value)
     }
@@ -80,10 +78,9 @@ const PredictDraws = (props) => {
     pred.push(numbers[parseInt(indx)].value)
 
     pred = [...new Set(pred)]
-    if (pred.length < columns - 1)
-    {
+    if (pred.length < columns - 1) {
       indx = Math.random() * numbers.length
-      pred.push(numbers[parseInt(indx)].value)  
+      pred.push(numbers[parseInt(indx)].value)
     }
 
     pred.sort((a, b) => a - b)
@@ -197,12 +194,20 @@ const PredictDraws = (props) => {
 
           {getHeader()}
         </Table>}
+      <div>
+        <Table>
 
-      <button
-        type="button"
-        onClick={() => setPredicts(getPredicts(columns, numberRange))}
-        className="btn btn-primary fw-bold float-end"
-      >Predict Next Draw</button>
+          <tr>
+            {predicts.map(p => (<th scope='col4' className='bg-color1 text-center text-danger fs-4 fw-bold px-2' key={p}>{p}</th>))}
+          </tr>
+
+        </Table>
+        <button
+          type="button"
+          onClick={() => setPredicts(getPredicts(columns, numberRange))}
+          className="btn btn-primary fw-bold float-end"
+        >Predict Next Draw</button>
+      </div>
     </div>
   )
 }
