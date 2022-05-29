@@ -131,7 +131,7 @@ function App() {
 
     setTotalPages(o.totalPages)
 
-    setDrawData(data[1])
+    setDrawData(data[0])
 
   }, [json, url, sortType, data, lottoColumns, lottoName, drawNumber])
 
@@ -177,7 +177,7 @@ function App() {
     <Styles>
       {
         <div className="container-fluid">
-          <nav className="navbar navbar-expand-xl bg-success sticky noqII">
+          <nav className="navbar navbar-expand-xl bg-color8 sticky noqII">
             <ul className="navbar-nav">
               <li className="nav-item">
                 <a className="navbar-brand" href="/images">
@@ -186,7 +186,7 @@ function App() {
               </li>
               <li className="nav-item">
                 <div className="mt-2 margin-left margin-right fw-bold">
-                  <select id="rpp" className="dropdown btn btn-success  dropdown-toggle margin-right fw-bold"
+                  <select id="rpp" className="dropdown btn bg-color8 my-color-1 dropdown-toggle margin-right fw-bold"
                     onChange={(e) => selectLotto(e.target.value)}>
                     {['BC49', 'Lotto649', 'LottoMax', 'DailyGrand', 'DailyGrand_GrandNumber'].map(lotto => (
                       <option key={lotto} value={lotto}>{lotto}</option>
@@ -196,7 +196,7 @@ function App() {
               </li>
               <li className="nav-item">
                 <div className="mt-2 margin-left margin-right fw-bold">
-                  <select id="rpp" className="dropdown btn btn-success  dropdown-toggle  fw-bold"
+                  <select id="rpp" className="dropdown btn bg-color8 my-color-1 dropdown-toggle  fw-bold"
                     onChange={(e) => setSortType(e.target.value)}>
                     {['number', 'distance', 'totalHits', 'lottoDraws', 'numberDraws', 'predictDraws'].map(sortType => (
                       <option key={sortType} value={sortType}> By {sortType}</option>

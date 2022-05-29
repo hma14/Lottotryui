@@ -16,7 +16,7 @@ const PredictDraws = (props) => {
 
 
   useEffect(() => {
-
+    
   }, [predicts])
 
   const getPredicts = (columns, numberRange) => {
@@ -31,7 +31,7 @@ const PredictDraws = (props) => {
     // select 3 groups based on totalHits
     var flip_coin = Math.random() * 2
 
-    
+
     var arr = flip_coin >= 1 ? getTotalHitsNumbers() : getDistanceNumbers()
     let low = arr[0]
     let middle = arr[1]
@@ -41,7 +41,7 @@ const PredictDraws = (props) => {
     // take 1 low
     indx = Math.random() * low.length
     pred.push(low[parseInt(indx)].value)
-    
+
 
     // take 2 middle
     indx = Math.random() * middle.length
@@ -76,14 +76,16 @@ const PredictDraws = (props) => {
     }
 
     pred = [...new Set(pred)]
-    if (pred.length < columns) {
+    while (pred.length < columns) {
       indx = Math.random() * high.length
       pred.push(high[parseInt(indx)].value)
+      pred = [...new Set(pred)]
     }
+
 
     pred.sort((a, b) => a - b)
 
-    //console.log(pred)
+    console.log(pred)
     return pred
 
   }
@@ -230,9 +232,14 @@ const PredictDraws = (props) => {
         </Table>}
       <div>
         <Table>
-
+          <thead className="table-danger text-center">
+            <tr>
+              {Array.from(Array(columns).keys()).map((no) =>
+                (<th key={no} className='text-warning bg-success'>{no + 1}</th>))}
+            </tr>
+          </thead>
           <tr>
-            {predicts.map(p => (<th scope='col4' className='bg-color1 text-center text-danger fs-4 fw-bold px-2' key={p}>{p}</th>))}
+            {predicts.map(p => (<td className='bg-color1 text-center text-danger fs-4 fw-bold px-2' key={p}>{p}</td>))}
           </tr>
 
         </Table>
