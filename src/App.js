@@ -199,7 +199,7 @@ function App() {
                   <select id="rpp" className="dropdown btn btn-success  dropdown-toggle  fw-bold"
                     onChange={(e) => setSortType(e.target.value)}>
                     {['number', 'distance', 'totalHits', 'lottoDraws', 'numberDraws', 'predictDraws'].map(sortType => (
-                      <option key={sortType} value={sortType}> Sort by {sortType}</option>
+                      <option key={sortType} value={sortType}> By {sortType}</option>
                     ))}
                   </select>
                 </div>
