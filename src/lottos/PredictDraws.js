@@ -29,16 +29,19 @@ const PredictDraws = (props) => {
     pred.push(lastHits[parseInt(indx)])
 
     // select 3 groups based on totalHits
-    var arr = getTotalHitsNumbers()
+    var flip_coin = Math.random() * 2
+
+    
+    var arr = flip_coin >= 1 ? getTotalHitsNumbers() : getDistanceNumbers()
     let low = arr[0]
     let middle = arr[1]
     let high = arr[2]
 
 
-
     // take 1 low
     indx = Math.random() * low.length
     pred.push(low[parseInt(indx)].value)
+    
 
     // take 2 middle
     indx = Math.random() * middle.length
@@ -46,6 +49,14 @@ const PredictDraws = (props) => {
 
     indx = Math.random() * middle.length
     pred.push(middle[parseInt(indx)].value)
+
+    if (flip_coin < 1) {
+      // add two more
+      indx = Math.random() * middle.length
+      pred.push(middle[parseInt(indx)].value)
+      indx = Math.random() * middle.length
+      pred.push(middle[parseInt(indx)].value)
+    }
 
     pred = [...new Set(pred)]
     if (pred.length < 4) {
@@ -56,31 +67,18 @@ const PredictDraws = (props) => {
     // take 3 high
     indx = Math.random() * high.length
     pred.push(high[parseInt(indx)].value)
+    if (flip_coin >= 1) {
+      indx = Math.random() * high.length
+      pred.push(high[parseInt(indx)].value)
 
-    indx = Math.random() * high.length
-    pred.push(high[parseInt(indx)].value)
-
-    indx = Math.random() * high.length
-    pred.push(high[parseInt(indx)].value)
-
-    /*  pred.push(parseInt((high[0].value + (Math.random() * (high[high.length - 1].value - high[0].value)))))
-     pred.push(parseInt((high[0].value + (Math.random() * (high[high.length - 1].value - high[0].value)))))
-     pred.push(parseInt((high[0].value + (Math.random() * (high[high.length - 1].value - high[0].value))))) */
-
-    pred = [...new Set(pred)]
-    if (pred.length < columns - 2) {
       indx = Math.random() * high.length
       pred.push(high[parseInt(indx)].value)
     }
 
-    // take 1 from random
-    indx = Math.random() * numbers.length
-    pred.push(numbers[parseInt(indx)].value)
-
     pred = [...new Set(pred)]
-    if (pred.length < columns - 1) {
-      indx = Math.random() * numbers.length
-      pred.push(numbers[parseInt(indx)].value)
+    if (pred.length < columns) {
+      indx = Math.random() * high.length
+      pred.push(high[parseInt(indx)].value)
     }
 
     pred.sort((a, b) => a - b)
@@ -106,11 +104,47 @@ const PredictDraws = (props) => {
     var middle = []
     var high = []
 
+    var oneThird = parseInt(tmp.length / 3 + 1)
+    var twoThird = parseInt((tmp.length * 2) / 3 + 1)
+
     for (var i = 0; i < tmp.length; i++) {
-      if (i < tmp.length / 3) {
+      if (i < oneThird) {
         low.push(tmp[i])
       }
-      else if (i < (tmp.length * 2) / 3) {
+      else if (i < twoThird) {
+        middle.push(tmp[i])
+      }
+      else {
+        high.push(tmp[i])
+      }
+    }
+
+    var arr = []
+    arr.push(low)
+    arr.push(middle)
+    arr.push(high)
+
+    return arr
+  }
+
+
+  const getDistanceNumbers = () => {
+
+    var tmp = numbers.sort((a, b) => a.distance > b.distance ? 1 : -1)
+    var low = []
+    var middle = []
+    var high = []
+
+    var oneThird = parseInt(tmp.length / 3 + 1)
+    var twoThird = parseInt((tmp.length * 2) / 3 + 1)
+
+    for (var i = 0; i < tmp.length; i++) {
+      if (tmp[i].distance == 0) continue
+
+      if (i < oneThird) {
+        low.push(tmp[i])
+      }
+      else if (i < twoThird) {
         middle.push(tmp[i])
       }
       else {

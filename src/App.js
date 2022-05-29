@@ -131,7 +131,7 @@ function App() {
 
     setTotalPages(o.totalPages)
 
-    setDrawData(data[0])
+    setDrawData(data[1])
 
   }, [json, url, sortType, data, lottoColumns, lottoName, drawNumber])
 
