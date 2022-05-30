@@ -231,7 +231,7 @@ const PredictDraws = (props) => {
           {getHeader()}
         </Table>}
       <div>
-        <Table>
+        <Table responsive>
           <thead className="table-danger text-center">
             <tr>
               {Array.from(Array(columns).keys()).map((no) =>
@@ -246,7 +246,7 @@ const PredictDraws = (props) => {
         <button
           type="button"
           onClick={() => setPredicts(getPredicts(columns, numberRange))}
-          className="btn btn-primary fw-bold float-end"
+          className="btn btn-primary fw-bold float-end"          
         >Predict Next Draw</button>
       </div>
     </div>
