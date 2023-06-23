@@ -79,7 +79,7 @@ function App() {
 
 
   const [{ data, json }] = useFetch(url, page, pageSize, drawNumber)
-  
+
 
   var pageLimit = 10
 
@@ -141,26 +141,26 @@ function App() {
 
 
     switch (value) {
-      case "BC49": 
-      setNumberRange(49)
-      return setLottoColumns(7)
+      case "BC49":
+        setNumberRange(49)
+        return setLottoColumns(7)
 
-      case "Lotto649": 
-      setNumberRange(49)
-      return setLottoColumns(7)
+      case "Lotto649":
+        setNumberRange(49)
+        return setLottoColumns(7)
 
-      case "LottoMax": 
-      setNumberRange(50)
-      return setLottoColumns(8)
+      case "LottoMax":
+        setNumberRange(50)
+        return setLottoColumns(8)
 
-      case "DailyGrand": 
-      setNumberRange(49)
-      return setLottoColumns(5)
+      case "DailyGrand":
+        setNumberRange(49)
+        return setLottoColumns(5)
 
 
-      case "DailyGrand_GrandNumber": 
-      setNumberRange(7)
-      return setLottoColumns(1)
+      case "DailyGrand_GrandNumber":
+        setNumberRange(7)
+        return setLottoColumns(1)
 
       default: return setLottoColumns(7)
 
@@ -243,7 +243,7 @@ function App() {
                   }
                 })()}
 
-              {sortType !== 'predictDraws' ? 
+              {sortType !== 'predictDraws' ?
                 (<div className="card bg-success text-warning">
                   <div className="row">
                     <div className="col-lg-3 mt-1 margin-left fw-bold">
